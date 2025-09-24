@@ -9,4 +9,10 @@ export default antfu(
       'CLAUDE.md',
     ],
   },
+  {
+    files: ['**/tests/**/*', '**/*.test.*', '**/*.spec.*'],
+    rules: {
+      'no-console': 'off',
+    },
+  },
 )

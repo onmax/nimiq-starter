@@ -23,7 +23,7 @@
   "scripts": {
     "build": "nr -r build",
     "dev": "nr -r dev",
-    "lint": "eslint",
+    "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepublishOnly": "nr build",
     "release": "bumpp -r && pnpm -r publish",

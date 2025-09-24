@@ -27,7 +27,6 @@ jobs:
 
       - run: pnpm i -g @antfu/ni
       - run: nci
-      - run: cd starters/${{ matrix.starter }} && pnpm lint
-      - run: cd starters/${{ matrix.starter }} && pnpm type-check
+      - run: cd starters/${{ matrix.starter }} && pnpm typecheck
       - run: cd starters/${{ matrix.starter }} && pnpm test
       - run: cd starters/${{ matrix.starter }} && pnpm build

@@ -1,10 +1,9 @@
 import { expect, it } from 'vitest'
 
 it('nimiq connection test', async () => {
-  // Skip if in Node.js unit test environment (no DOM/browser APIs)
+  // Require browser environment (window and document must be available)
   if (typeof window === 'undefined' || typeof document === 'undefined') {
-    // Skip in unit environment
-    return
+    throw new TypeError('This test requires a browser environment with window and document objects. Run with: pnpm test:browser')
   }
 
   // Create app container
@@ -50,5 +49,5 @@ it('nimiq connection test', async () => {
   const blockNumber = Number.parseInt(blockElement?.textContent || '0')
   expect(blockNumber).toBeGreaterThan(0)
 
-  // Test completed successfully
+  console.log(`✅ Nimiq test passed: Block ${blockNumber}`)
 }, 90000)
