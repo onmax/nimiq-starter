@@ -10,26 +10,29 @@ export default defineConfig({
     // Browser testing for WebAssembly
     browser: {
       enabled: true,
-      name: 'chromium',
       provider: 'playwright',
       headless: true,
       screenshotFailures: false,
-      // Optimize for CI environments
+      // Configure browser instances for Vitest 3
       instances: [
         {
           browser: 'chromium',
-          launch: {
-            args: [
-              '--no-sandbox',
-              '--disable-setuid-sandbox',
-              '--disable-dev-shm-usage',
-              '--disable-gpu',
-              '--disable-web-security',
-              '--disable-features=VizDisplayCompositor',
-            ],
-          },
+          // CI-optimized arguments passed to provider options
         },
       ],
+      // Provider options for Playwright launch arguments
+      providerOptions: {
+        launch: {
+          args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-gpu',
+            '--disable-web-security',
+            '--disable-features=VizDisplayCompositor',
+          ],
+        },
+      },
     },
     // Increase timeout for blockchain connections
     testTimeout: 120000,
