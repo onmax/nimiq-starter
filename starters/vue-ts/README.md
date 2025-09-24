@@ -50,20 +50,20 @@ pnpm preview
 The `vite.config.ts` includes essential plugins for Nimiq:
 
 ```typescript
-import wasm from 'vite-plugin-wasm'
 import topLevelAwait from 'vite-plugin-top-level-await'
+import wasm from 'vite-plugin-wasm'
 
 export default defineConfig({
   plugins: [
     vue(),
-    wasm(),           // WebAssembly support
-    topLevelAwait(),  // Top-level await support
+    wasm(), // WebAssembly support
+    topLevelAwait(), // Top-level await support
   ],
   worker: {
     plugins: () => [wasm(), topLevelAwait()]
   },
   optimizeDeps: {
-    exclude: ['@nimiq/core'],  // Exclude from Vite optimization
+    exclude: ['@nimiq/core'], // Exclude from Vite optimization
   },
 })
 ```

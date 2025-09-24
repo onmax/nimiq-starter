@@ -116,7 +116,7 @@ build: { target: 'esnext', rollupOptions: { output: { format: 'es' } } }
 // Always use dynamic imports for @nimiq/core
 const Nimiq = await import('@nimiq/core')
 const config = new Nimiq.ClientConfiguration()
-config.syncMode('pico')  // Lightweight sync mode
+config.syncMode('pico') // Lightweight sync mode
 const client = await Nimiq.Client.create(config.build())
 ```
 

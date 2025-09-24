@@ -1,9 +1,9 @@
 import { fileURLToPath, URL } from 'node:url'
 
-import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import vueDevTools from 'vite-plugin-vue-devtools'
+import { defineConfig } from 'vite'
 import topLevelAwait from 'vite-plugin-top-level-await'
+import vueDevTools from 'vite-plugin-vue-devtools'
 import wasm from 'vite-plugin-wasm'
 
 // https://vite.dev/config/
@@ -16,7 +16,7 @@ export default defineConfig({
       // The module that contains the top-level await
       promiseExportName: '__tla',
       // The function to generate the promise export name
-      promiseImportName: i => `__tla_${i}`
+      promiseImportName: i => `__tla_${i}`,
     }),
   ],
   worker: {
@@ -25,13 +25,13 @@ export default defineConfig({
       wasm(),
       topLevelAwait({
         promiseExportName: '__tla',
-        promiseImportName: i => `__tla_${i}`
+        promiseImportName: i => `__tla_${i}`,
       }),
-    ]
+    ],
   },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
   optimizeDeps: {
@@ -42,8 +42,8 @@ export default defineConfig({
     target: 'esnext',
     rollupOptions: {
       output: {
-        format: 'es'
-      }
-    }
-  }
+        format: 'es',
+      },
+    },
+  },
 })

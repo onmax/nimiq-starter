@@ -1,5 +1,5 @@
 {
-  "name": "nimiq-starter-monorepo",
+  "name": "nimiq-starter",
   "type": "module",
   "version": "0.0.0",
   "private": true,
@@ -7,13 +7,11 @@
   "description": "Nimiq Web Client starter templates for different frameworks",
   "author": "Anthony Fu <anthonyfu117@hotmail.com>",
   "license": "MIT",
-  "funding": "https://github.com/sponsors/antfu",
-  "homepage": "https://github.com/antfu/nimiq-starter-monorepo#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antfu/nimiq-starter-monorepo.git"
+    "url": "git+https://github.com/onmax/nimiq-starter.git"
   },
-  "bugs": "https://github.com/antfu/nimiq-starter-monorepo/issues",
+  "bugs": "https://github.com/onmax/nimiq-starter/issues",
   "keywords": [
     "nimiq",
     "blockchain",
@@ -26,6 +24,7 @@
     "build": "nr -r build",
     "dev": "nr -r dev",
     "lint": "eslint",
+    "lint:fix": "eslint . --fix",
     "prepublishOnly": "nr build",
     "release": "bumpp -r && pnpm -r publish",
     "test": "vitest",
