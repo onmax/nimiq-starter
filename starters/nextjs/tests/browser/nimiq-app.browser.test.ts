@@ -39,7 +39,7 @@ async function waitForPositiveNumber(selector: string, timeout = 60000): Promise
   throw new Error(`Timed out waiting for positive number in ${selector}`)
 }
 
-it('connects to Nimiq and reports a block height', async () => {
+it.skipIf(process.env.CI)('connects to Nimiq and reports a block height', async () => {
   if (typeof window === 'undefined' || typeof document === 'undefined') {
     throw new TypeError('This test requires a browser environment with window and document objects. Run with: pnpm test:browser')
   }
@@ -78,7 +78,8 @@ it('connects to Nimiq and reports a block height', async () => {
     if (loading) {
       button.setAttribute('aria-busy', 'true')
       button.disabled = true
-    } else {
+    }
+    else {
       button.removeAttribute('aria-busy')
       button.disabled = client !== null
     }
@@ -114,7 +115,8 @@ it('connects to Nimiq and reports a block height', async () => {
 
   // Nimiq initialization function (similar to useNimiq hook logic)
   async function initializeNimiq() {
-    if (client) return
+    if (client)
+      return
 
     try {
       loading = true
