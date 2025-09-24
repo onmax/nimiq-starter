@@ -39,7 +39,7 @@ async function waitForPositiveNumber(selector: string, timeout = 60000): Promise
   throw new Error(`Timed out waiting for positive number in ${selector}`)
 }
 
-it.skipIf(process.env.CI)('connects to Nimiq and reports a block height', async () => {
+it('connects to Nimiq and reports a block height', async () => {
   if (typeof window === 'undefined' || typeof document === 'undefined') {
     throw new TypeError('This test requires a browser environment with window and document objects. Run with: pnpm test:browser')
   }

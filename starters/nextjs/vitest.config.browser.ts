@@ -13,7 +13,26 @@ export default defineConfig({
       name: 'chromium',
       provider: 'playwright',
       headless: true,
+      screenshotFailures: false,
+      // Optimize for CI environments
+      instances: [
+        {
+          browser: 'chromium',
+          launch: {
+            args: [
+              '--no-sandbox',
+              '--disable-setuid-sandbox',
+              '--disable-dev-shm-usage',
+              '--disable-gpu',
+              '--disable-web-security',
+              '--disable-features=VizDisplayCompositor',
+            ],
+          },
+        },
+      ],
     },
+    // Increase timeout for blockchain connections
+    testTimeout: 120000,
   },
   resolve: {
     alias: {
