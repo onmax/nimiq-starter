@@ -1,28 +1,43 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack: (config, { isServer }) => {
-    // WebAssembly support
+  // Specify the workspace root to silence warning
+  outputFileTracingRoot: '/home/maxi/nimiq/starter',
+
+  webpack: (config, { isServer, dev }) => {
+    // WebAssembly support - following wasm-next reference pattern
+    config.output.webassemblyModuleFilename =
+      isServer && !dev
+        ? '../static/wasm/[modulehash].wasm'
+        : 'static/wasm/[modulehash].wasm'
+
     config.experiments = {
       ...config.experiments,
       asyncWebAssembly: true,
       topLevelAwait: true,
-      layers: true,
     }
 
-    // Add rule for WebAssembly files
-    config.module.rules.push({
-      test: /\.wasm$/,
-      type: 'webassembly/async',
-    })
+    // Infrastructure logging for debugging
+    config.infrastructureLogging = {
+      debug: /PackFileCache/,
+    }
 
-    // Exclude @nimiq/core from optimization - only for client side
+    // Client-side only configurations
     if (!isServer) {
+      // Node.js polyfills/fallbacks for browser
       config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
         net: false,
         tls: false,
         crypto: false,
+        path: false,
+        stream: false,
+        util: false,
+        buffer: false,
+        assert: false,
+        os: false,
+        url: false,
+        constants: false,
       }
     }
 

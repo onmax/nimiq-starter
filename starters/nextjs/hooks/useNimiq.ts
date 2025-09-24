@@ -1,45 +1,44 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
-type NimiqModule = typeof import('@nimiq/core/web')
-type Client = import('@nimiq/core/web').Client
-type ConsensusState = import('@nimiq/core/web').ConsensusState
+// Nimiq types - will be resolved from @nimiq/core/web at runtime
+type NimiqClient = any
+type ConsensusState = 'connecting' | 'syncing' | 'established'
 
 export function useNimiq() {
-  const [client, setClient] = useState<Client | null>(null)
+  const [client, setClient] = useState<NimiqClient | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string>()
   const [consensus, setConsensus] = useState<ConsensusState | 'Not connected'>('Not connected')
   const [headBlockNumber, setHeadBlockNumber] = useState<number>(0)
-  const nimiqRef = useRef<NimiqModule | null>(null)
-  const initializingRef = useRef(false)
 
   const initializeNimiq = useCallback(async () => {
-    if (client || initializingRef.current)
+    if (client)
       return
 
     try {
-      initializingRef.current = true
       setLoading(true)
       setError(undefined)
 
-      // Dynamic import for client-side only
-      const Nimiq = await import('@nimiq/core/web')
-      nimiqRef.current = Nimiq
+      // Check if we're in a browser environment
+      if (typeof window === 'undefined') {
+        throw new Error('Nimiq can only be initialized in the browser')
+      }
 
-      // Initialize WASM
-      await Nimiq.default()
+      // Real Nimiq integration using dynamic import
+      const { default: init, ...Nimiq } = await import('@nimiq/core/web')
+      await init()
 
       const config = new Nimiq.ClientConfiguration()
       config.syncMode('pico')
       const newClient = await Nimiq.Client.create(config.build())
 
-      newClient.addConsensusChangedListener((state) => {
+      newClient.addConsensusChangedListener((state: ConsensusState) => {
         setConsensus(state)
       })
 
-      newClient.addHeadChangedListener(async (hash) => {
+      newClient.addHeadChangedListener(async (hash: any) => {
         const block = await newClient.getBlock(hash)
         if (block) {
           setHeadBlockNumber(block.height)
@@ -54,19 +53,14 @@ export function useNimiq() {
     }
     finally {
       setLoading(false)
-      initializingRef.current = false
     }
   }, [client])
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
-      if (client) {
-        // Client cleanup if needed
-        setClient(null)
-      }
+      setClient(null)
     }
-  }, [client])
+  }, [])
 
   return {
     initializeNimiq,
