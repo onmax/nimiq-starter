@@ -5,7 +5,7 @@ export function useNimiq() {
   const client = ref<Nimiq.Client | null>(null)
   const loading = ref(false)
   const error = ref<string>()
-  const consensus = ref<Nimiq.ConsensusState>()
+  const consensus = ref<Nimiq.ConsensusState | 'Not connected'>('Not connected')
   const headBlockNumber = ref<number>(0)
 
   async function initializeNimiq() {

@@ -1,0 +1,35 @@
+{
+  "name": "nimiq-nextjs",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:unit": "vitest run --environment=jsdom",
+    "test:browser": "vitest run --config vitest.config.browser.ts",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@nimiq/core": "catalog:",
+    "next": "15.5.4",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.7.0",
+    "@testing-library/react": "^16.1.0",
+    "@types/node": "catalog:types",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/browser": "catalog:",
+    "jsdom": "catalog:",
+    "playwright": "catalog:",
+    "typescript": "catalog:cli",
+    "vitest": "catalog:testing"
+  }
+}
