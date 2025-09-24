@@ -1,6 +1,7 @@
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
 
-test('Nimiq connection test', async () => {
+// Only run in browser environment
+it.skipIf(typeof process !== 'undefined' && process.env.VITEST_ENVIRONMENT !== 'browser')('nimiq connection test', async () => {
   // Create app container
   document.body.innerHTML = '<div id="app"></div>'
 
@@ -15,10 +16,12 @@ test('Nimiq connection test', async () => {
   await new Promise(resolve => setTimeout(resolve, 3000))
 
   // Debug: Check what's in the DOM
+  // eslint-disable-next-line no-console
   console.log('App container content:', document.querySelector('#app')?.innerHTML.substring(0, 500))
 
   // Click the button
   const button = document.querySelector('button')
+  // eslint-disable-next-line no-console
   console.log('Button found:', !!button, 'Text:', button?.textContent)
   expect(button).toBeTruthy()
   button?.click()
@@ -51,8 +54,9 @@ test('Nimiq connection test', async () => {
   // Check block number exists and is greater than 0
   const blockElement = document.querySelector('code')
   expect(blockElement).toBeTruthy()
-  const blockNumber = parseInt(blockElement?.textContent || '0')
+  const blockNumber = Number.parseInt(blockElement?.textContent || '0')
   expect(blockNumber).toBeGreaterThan(0)
 
+  // eslint-disable-next-line no-console
   console.log(`✅ Test passed: Consensus established, Block: ${blockNumber}`)
 }, 180000)
