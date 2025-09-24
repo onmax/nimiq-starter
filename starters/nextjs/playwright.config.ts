@@ -1,12 +1,12 @@
-import process from 'node:process'
+import { env } from 'node:process'
 import { defineConfig, devices } from '@playwright/test'
 
 export default defineConfig({
   testDir: './tests/browser',
   fullyParallel: true,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  forbidOnly: !!env.CI,
+  retries: env.CI ? 2 : 0,
+  workers: env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
     baseURL: 'http://localhost:3000',
@@ -23,6 +23,6 @@ export default defineConfig({
   webServer: {
     command: 'pnpm dev',
     port: 3000,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: !env.CI,
   },
 })
