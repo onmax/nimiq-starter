@@ -1,53 +1,62 @@
 import { expect, it } from 'vitest'
 
-it('nimiq connection test', async () => {
-  // Require browser environment (window and document must be available)
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+async function findElement<T extends Element>(selector: string, timeout = 10000): Promise<T> {
+  const deadline = Date.now() + timeout
+  while (Date.now() < deadline) {
+    const element = document.querySelector(selector) as T | null
+    if (element)
+      return element
+    await sleep(100)
+  }
+  throw new Error(`Element ${selector} not found within ${timeout}ms`)
+}
+
+async function waitForText(selector: string, text: string, timeout = 60000) {
+  const deadline = Date.now() + timeout
+  const normalizedTarget = text.toLowerCase()
+  while (Date.now() < deadline) {
+    const current = document.querySelector(selector)?.textContent?.trim()
+    if (current?.toLowerCase() === normalizedTarget)
+      return
+    await sleep(500)
+  }
+  throw new Error(`Timed out waiting for ${text} in ${selector}`)
+}
+
+async function waitForPositiveNumber(selector: string, timeout = 60000): Promise<number> {
+  const deadline = Date.now() + timeout
+  while (Date.now() < deadline) {
+    const raw = document.querySelector(selector)?.textContent?.trim() ?? ''
+    const value = Number.parseInt(raw, 10)
+    if (Number.isFinite(value) && value > 0)
+      return value
+    await sleep(500)
+  }
+  throw new Error(`Timed out waiting for positive number in ${selector}`)
+}
+
+it('connects to Nimiq and reports a block height', async () => {
   if (typeof window === 'undefined' || typeof document === 'undefined') {
-    throw new TypeError('This test requires a browser environment with window and document objects. Run with: pnpm test:browser')
+    throw new TypeError('This test requires a browser environment with window and document objects. Run with: pnpm test')
   }
 
-  // Create app container
   document.body.innerHTML = '<div id="app"></div>'
 
-  // Dynamically import and mount Vue app
   const { createApp } = await import('vue')
   const App = await import('../App.vue')
-
   const app = createApp(App.default)
   app.mount('#app')
 
-  // Wait for Vue to render
-  await new Promise(resolve => setTimeout(resolve, 2000))
+  const connectButton = await findElement<HTMLButtonElement>('button')
+  connectButton.click()
 
-  // Click the button
-  const button = document.querySelector('button')
-  expect(button).toBeTruthy()
-  button?.click()
+  await waitForText('kbd', 'Established')
 
-  // Wait and check consensus status changed from initial
-  await new Promise(resolve => setTimeout(resolve, 2000))
-  const statusElement = document.querySelector('kbd')
-  expect(statusElement).toBeTruthy()
-  expect(statusElement?.textContent).not.toBe('Not connected')
-
-  // Wait for consensus (up to 1 minute)
-  let attempts = 0
-  while (attempts < 60) {
-    const currentStatus = document.querySelector('kbd')?.textContent
-    if (currentStatus === 'Established')
-      break
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    attempts++
-  }
-
-  // Verify final state
-  const finalStatus = document.querySelector('kbd')?.textContent
-  expect(finalStatus?.toLowerCase()).toBe('established')
-
-  const blockElement = document.querySelector('code')
-  expect(blockElement).toBeTruthy()
-  const blockNumber = Number.parseInt(blockElement?.textContent || '0')
+  const blockNumber = await waitForPositiveNumber('code')
   expect(blockNumber).toBeGreaterThan(0)
-
   console.log(`✅ Nimiq test passed: Block ${blockNumber}`)
 }, 90000)

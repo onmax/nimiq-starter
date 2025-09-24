@@ -5,7 +5,7 @@ export function useNimiq() {
   const client = ref<Nimiq.Client | null>(null)
   const loading = ref(false)
   const error = ref<string>()
-  const consensus = ref<string>('Not connected')
+  const consensus = ref<Nimiq.ConsensusState>()
   const headBlockNumber = ref<number>(0)
 
   async function initializeNimiq() {
@@ -22,11 +22,11 @@ export function useNimiq() {
       config.syncMode('pico')
       client.value = await Nimiq.Client.create(config.build())
 
-      client.value.addConsensusChangedListener((state: string) => {
+      client.value.addConsensusChangedListener((state) => {
         consensus.value = state
       })
 
-      client.value.addHeadChangedListener(async (hash: string) => {
+      client.value.addHeadChangedListener(async (hash) => {
         const block = await client.value!.getBlock(hash)
         if (block) {
           headBlockNumber.value = block.height
