@@ -15,7 +15,7 @@ const nextConfig = {
       type: 'webassembly/async',
     })
 
-    // Exclude @nimiq/core from optimization
+    // Exclude @nimiq/core from optimization - only for client side
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -27,12 +27,6 @@ const nextConfig = {
     }
 
     return config
-  },
-  // Ensure ES modules output
-  swcMinify: true,
-  // Disable static optimization for pages using Nimiq
-  experimental: {
-    esmExternals: true,
   },
 }
 
