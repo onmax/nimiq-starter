@@ -8,9 +8,7 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run --environment=jsdom",
-    "test:unit": "vitest run --environment=jsdom",
-    "test:browser": "vitest run --config vitest.config.browser.ts",
+    "test": "playwright test",
     "lint": "next lint"
   },
   "dependencies": {
@@ -23,16 +21,10 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.55.1",
-    "@testing-library/jest-dom": "^6.7.0",
-    "@testing-library/react": "^16.1.0",
     "@types/node": "catalog:types",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@vitejs/plugin-react": "^4.3.4",
-    "@vitest/browser": "catalog:",
-    "jsdom": "catalog:",
     "playwright": "catalog:",
-    "typescript": "catalog:cli",
-    "vitest": "catalog:testing"
+    "typescript": "catalog:cli"
   }
 }

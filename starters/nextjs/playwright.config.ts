@@ -2,7 +2,7 @@ import { env } from 'node:process'
 import { defineConfig, devices } from '@playwright/test'
 
 export default defineConfig({
-  testDir: './tests/browser',
+  testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!env.CI,
   retries: env.CI ? 2 : 0,
