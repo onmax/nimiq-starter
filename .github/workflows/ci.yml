@@ -10,7 +10,31 @@ on:
       - main
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: pnpm
+
+      - run: pnpm i -g @antfu/ni
+      - run: nci
+
+      - name: Cache node_modules
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            node_modules
+            starters/*/node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+
   ci:
+    needs: setup
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -25,8 +49,16 @@ jobs:
           node-version: lts/*
           cache: pnpm
 
+      - name: Restore node_modules
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            node_modules
+            starters/*/node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          fail-on-cache-miss: true
+
       - run: pnpm i -g @antfu/ni
-      - run: nci
 
       - name: Install Playwright Browsers
         run: pnpm --filter ${{ matrix.package }} exec playwright install --with-deps chromium
