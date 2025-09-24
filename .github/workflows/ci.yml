@@ -29,5 +29,5 @@ jobs:
       - run: nci
       - run: cd starters/${{ matrix.starter }} && pnpm lint
       - run: cd starters/${{ matrix.starter }} && pnpm type-check
-      - run: cd starters/${{ matrix.starter }} && pnpm test:unit
+      - run: cd starters/${{ matrix.starter }} && pnpm test
       - run: cd starters/${{ matrix.starter }} && pnpm build
