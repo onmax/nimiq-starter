@@ -1,6 +1,7 @@
+import type { Page } from '@playwright/test'
 import { expect, test } from '@playwright/test'
 
-test('connects to Nimiq and reports a block height', async ({ page }) => {
+test('connects to Nimiq and reports a block height', async ({ page }: { page: Page }) => {
   // Navigate to the Next.js application
   await page.goto('/')
 
@@ -28,4 +29,7 @@ test('connects to Nimiq and reports a block height', async ({ page }) => {
   expect(blockNumber).toBeGreaterThan(0)
 
   console.log(`✅ Nimiq Next.js test passed: Block ${blockNumber}`)
-}, 120000)
+})
+
+// Set test timeout to 2 minutes
+test.setTimeout(120000)
