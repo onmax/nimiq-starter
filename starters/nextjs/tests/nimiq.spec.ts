@@ -1,37 +1,31 @@
 import { expect, test } from '@playwright/test'
 
-test('loads Next.js app and can connect to Nimiq', async ({ page }) => {
+test('connects to Nimiq and reports a block height', async ({ page }) => {
   // Navigate to the Next.js application
   await page.goto('/')
 
-  // Wait for the page to load and check for server errors first
+  // Wait for the page to load completely
   await page.waitForLoadState('networkidle')
 
   // Verify the application loaded correctly
   await expect(page.locator('h3')).toContainText('Nimiq Next.js Starter', { timeout: 30000 })
 
-  // Verify the connect button is present
+  // Click the connect button
   const connectButton = page.locator('button')
   await expect(connectButton).toBeVisible()
-  await expect(connectButton).toContainText('Connect to Nimiq')
-
-  // Click the connect button
   await connectButton.click()
 
-  // Wait a bit for the connection attempt
-  await page.waitForTimeout(5000)
+  // Wait for consensus to be established (like the Vue test)
+  await expect(page.locator('kbd')).toContainText('established', { timeout: 90000 })
 
-  // Check if we get either success or at least the connection attempt started
-  // In CI, the blockchain connection may fail due to network restrictions
-  const hasConsensusElement = await page.locator('kbd').count() > 0
-  const hasErrorElement = await page.locator('[role="alert"]').count() > 0
-  const buttonDisabled = await connectButton.isDisabled()
+  // Wait for a positive block number
+  const blockElement = page.locator('code')
+  await expect(blockElement).not.toBeEmpty({ timeout: 60000 })
 
-  // The test passes if:
-  // 1. Connection succeeded (consensus element present), OR
-  // 2. Connection failed gracefully (error shown or button disabled), OR
-  // 3. Connection is in progress (button disabled)
-  expect(hasConsensusElement || hasErrorElement || buttonDisabled).toBe(true)
+  // Verify block number is greater than 0
+  const blockText = await blockElement.textContent()
+  const blockNumber = Number.parseInt(blockText || '0', 10)
+  expect(blockNumber).toBeGreaterThan(0)
 
-  console.log('✅ Next.js app loaded successfully and Nimiq connection attempted')
-})
+  console.log(`✅ Nimiq Next.js test passed: Block ${blockNumber}`)
+}, 120000)
