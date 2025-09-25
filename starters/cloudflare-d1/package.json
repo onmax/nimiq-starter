@@ -1,0 +1,23 @@
+{
+  "name": "nimiq-cloudflare-d1",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "tsc",
+    "deploy": "wrangler deploy",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@nimiq/core": "^2.1.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241212.0",
+    "@types/node": "^24.5.2",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4",
+    "wrangler": "^3.93.0"
+  }
+}
