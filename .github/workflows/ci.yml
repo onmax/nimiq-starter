@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package: [nimiq-vue-ts, nimiq-react-ts, nimiq-nextjs, nimiq-cloudflare-d1]
+        package: [nimiq-vue-ts, nimiq-react-ts, nimiq-nextjs]
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -29,12 +29,7 @@ jobs:
       - run: nci
 
       - name: Install Playwright Browsers
-        run: |
-          if pnpm --filter ${{ matrix.package }} exec playwright --version >/dev/null 2>&1; then
-            pnpm --filter ${{ matrix.package }} exec playwright install --with-deps chromium
-          else
-            echo "Playwright not found in ${{ matrix.package }}, skipping browser installation"
-          fi
+        run: pnpm --filter ${{ matrix.package }} exec playwright install --with-deps chromium
 
       - run: pnpm --filter ${{ matrix.package }} typecheck
       - run: pnpm --filter ${{ matrix.package }} test
