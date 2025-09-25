@@ -2,7 +2,7 @@
 
 A minimal Cloudflare Worker starter that demonstrates Nimiq blockchain integration using pico sync mode.
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 npx degit onmax/nimiq-starter/starters/cloudflare-d1 my-nimiq-worker

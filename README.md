@@ -6,7 +6,7 @@ A monorepo containing starter templates for integrating Nimiq web client with di
 
 Nimiq is a browser-based blockchain and ecosystem that makes cryptocurrencies accessible to everyone. The Nimiq web client allows you to build decentralized applications directly in the browser using WebAssembly, without requiring any server-side infrastructure.
 
-## 🚀 Quick Start - Choose Your Template
+## Quick Start - Choose Your Template
 
 Pick your preferred framework and run one command to get started:
 
@@ -49,9 +49,9 @@ npx giget@latest gh:onmax/nimiq-starter/starters/next-js my-nimiq-app
 npx giget@latest gh:onmax/nimiq-starter/starters/cloudflare-d1 my-nimiq-worker
 ```
 
-## 📚 Available Templates
+## Available Templates
 
-### 🎨 Vue 3 + TypeScript
+### Vue 3 + TypeScript
 **Perfect for**: Modern reactive web apps with composition API
 - ⚡️ Vite for lightning-fast development
 - 🏷️ Full TypeScript support
@@ -60,7 +60,7 @@ npx giget@latest gh:onmax/nimiq-starter/starters/cloudflare-d1 my-nimiq-worker
 - 🧪 Vitest for unit and browser testing
 - 📝 ESLint + Prettier for code quality
 
-### ⚛️ React + TypeScript
+### React + TypeScript
 **Perfect for**: Component-based web applications
 - ⚡️ Vite-powered React 18 with TypeScript
 - 🪝 Custom `useNimiq` hook for blockchain state management
@@ -68,21 +68,21 @@ npx giget@latest gh:onmax/nimiq-starter/starters/cloudflare-d1 my-nimiq-worker
 - 🧪 Browser testing with Vitest + Playwright
 - 📱 Modern React patterns with hooks
 
-### 🔥 Next.js + TypeScript
+### Next.js + TypeScript
 **Perfect for**: Full-stack applications with SSR/SSG
 - 🚀 Next.js with App Router
 - 🏷️ TypeScript throughout
 - 🌐 Server and client-side Nimiq integration
 - 📦 Optimized bundling and WebAssembly support
 
-### ☁️ Cloudflare Workers + D1
+### Cloudflare Workers + D1
 **Perfect for**: Serverless blockchain APIs
 - 🌩️ Cloudflare Workers runtime with D1 database
 - 🪶 Lightweight pico sync mode
 - 📡 Single `/block-number` API endpoint
 - ⚡️ Edge computing with WebAssembly support
 
-## 🏗️ Full Monorepo Development
+## Full Monorepo Development
 
 Want to work with all templates or contribute? Clone the full repository:
 
@@ -105,7 +105,7 @@ pnpm lint
 pnpm typecheck
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 nimiq-starter/
@@ -154,9 +154,11 @@ Each starter includes:
    const client = await Nimiq.Client.create(config.build())
    ```
 
-## 🔮 Future Templates
+## Future Templates
 
-Coming soon:
+Want to see support for another framework? [Open an issue](https://github.com/onmax/nimiq-starter/issues/new) and let us know!
+
+Potential templates:
 - **Svelte + TypeScript** - Component-based development with Svelte
 - **Vanilla TypeScript** - Pure TypeScript without frameworks
 - **Nuxt 3** - Full-stack Vue.js framework
@@ -173,6 +175,6 @@ Contributions are welcome! To add a new framework starter:
 4. Add documentation and update this README
 5. Ensure all tests pass
 
-## 📄 License
+## License
 
 MIT License

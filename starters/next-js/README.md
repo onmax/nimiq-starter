@@ -2,7 +2,7 @@
 
 A Next.js starter template with Nimiq blockchain integration.
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 npx degit onmax/nimiq-starter/starters/next-js my-nimiq-app

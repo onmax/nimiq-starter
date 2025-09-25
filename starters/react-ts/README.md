@@ -2,7 +2,7 @@
 
 A minimal starter template for integrating Nimiq blockchain with React and TypeScript, built with Vite.
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 npx degit onmax/nimiq-starter/starters/react-ts my-nimiq-app
