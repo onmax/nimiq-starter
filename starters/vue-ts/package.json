@@ -12,8 +12,7 @@
     "preview": "vite preview",
     "test": "vitest --browser.enabled --browser.headless",
     "build-only": "vite build",
-    "typecheck": "vue-tsc --build",
-    "format": "prettier --write src/"
+    "typecheck": "vue-tsc --build --noEmit"
   },
   "dependencies": {
     "@nimiq/core": "^2.1.1",
@@ -30,7 +29,6 @@
     "jiti": "^2.4.2",
     "jsdom": "^26.1.0",
     "playwright": "^1.55.1",
-    "prettier": "3.6.2",
     "typescript": "^5.9.2",
     "vite": "^7.1.7",
     "vite-plugin-top-level-await": "^1.6.0",
