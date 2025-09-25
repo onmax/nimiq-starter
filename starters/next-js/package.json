@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "nimiq-nextjs",
   "type": "module",
   "version": "0.1.0",
   "private": true,
@@ -9,6 +9,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "typecheck": "tsc --noEmit",
     "test": "playwright test"
   },
   "dependencies": {
