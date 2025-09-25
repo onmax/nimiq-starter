@@ -34,21 +34,6 @@ npx degit onmax/nimiq-starter/starters/cloudflare-d1 my-nimiq-worker
 cd my-nimiq-worker && pnpm install && pnpm dev
 ```
 
-### Alternative using giget
-```bash
-# Vue
-npx giget@latest gh:onmax/nimiq-starter/starters/vue-ts my-nimiq-app
-
-# React
-npx giget@latest gh:onmax/nimiq-starter/starters/react-ts my-nimiq-app
-
-# Next.js
-npx giget@latest gh:onmax/nimiq-starter/starters/next-js my-nimiq-app
-
-# Cloudflare Workers
-npx giget@latest gh:onmax/nimiq-starter/starters/cloudflare-d1 my-nimiq-worker
-```
-
 ## Available Templates
 
 ### Vue 3 + TypeScript
@@ -126,13 +111,6 @@ nimiq-starter/
 ## Future Templates
 
 Want to see support for another framework? [Open an issue](https://github.com/onmax/nimiq-starter/issues/new) and let us know!
-
-Potential templates:
-- **Svelte + TypeScript** - Component-based development with Svelte
-- **Vanilla TypeScript** - Pure TypeScript without frameworks
-- **Nuxt 3** - Full-stack Vue.js framework
-- **Astro** - Modern static site generator
-- **Node.js API** - Server-side blockchain integration
 
 ## Contributing
 
