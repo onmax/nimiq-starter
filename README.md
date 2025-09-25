@@ -118,41 +118,10 @@ nimiq-starter/
 └── pnpm-workspace.yaml      # pnpm workspace configuration
 ```
 
-## Nimiq Integration Guide
+## Learn More
 
-Each starter includes:
-
-1. **Proper Vite Configuration**: WebAssembly and top-level await support
-2. **Nimiq Client Setup**: Async initialization with error handling
-3. **Consensus Monitoring**: Real-time status updates using event listeners
-4. **Block Updates**: Subscribe to new blocks and display current height
-5. **TypeScript Support**: Full type safety for Nimiq APIs
-
-### Key Integration Steps
-
-1. Install required dependencies:
-   ```bash
-   pnpm add @nimiq/core
-   pnpm add -D vite-plugin-wasm vite-plugin-top-level-await
-   ```
-
-2. Configure Vite for WebAssembly:
-   ```js
-   import topLevelAwait from 'vite-plugin-top-level-await'
-   // vite.config.ts
-   import wasm from 'vite-plugin-wasm'
-
-   export default defineConfig({
-     plugins: [wasm(), topLevelAwait()],
-     optimizeDeps: { exclude: ['@nimiq/core'] }
-   })
-   ```
-
-3. Initialize Nimiq client:
-   ```js
-   const Nimiq = await import('@nimiq/core')
-   const client = await Nimiq.Client.create(config.build())
-   ```
+- [Nimiq Web Client Documentation](http://nimiq.com/developers/web-client)
+- [Nimiq Developer Hub](https://nimiq.com/developers/)
 
 ## Future Templates
 

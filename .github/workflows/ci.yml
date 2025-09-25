@@ -9,6 +9,9 @@ on:
     branches:
       - main
 
+  schedule:
+    - cron: '0 0 1 * *' # Run monthly on the 1st at midnight UTC
+
 jobs:
   ci:
     runs-on: ubuntu-latest

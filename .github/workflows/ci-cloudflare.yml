@@ -13,6 +13,9 @@ on:
     paths:
       - 'starters/cloudflare-d1/**'
 
+  schedule:
+    - cron: '0 0 1 * *' # Run monthly on the 1st at midnight UTC
+
 jobs:
   cloudflare-ci:
     runs-on: ubuntu-latest
