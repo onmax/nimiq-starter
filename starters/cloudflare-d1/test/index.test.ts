@@ -1,14 +1,19 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import worker from '../src/index'
 
-describe('Nimiq Cloudflare Worker', () => {
+// Mock ExecutionContext for testing
+function createMockExecutionContext(): ExecutionContext {
+  return {
+    waitUntil: () => {},
+    passThroughOnException: () => {},
+  }
+}
+
+describe('nimiq Cloudflare Worker', () => {
   it('should return block number from /block-number endpoint', async () => {
     const request = new Request('http://example.com/block-number')
     const env = {}
-    const ctx = {
-      waitUntil: () => {},
-      passThroughOnException: () => {}
-    } as ExecutionContext
+    const ctx = createMockExecutionContext()
 
     const response = await worker.fetch(request, env, ctx)
     const data = await response.json() as any
@@ -22,10 +27,7 @@ describe('Nimiq Cloudflare Worker', () => {
   it('should return 404 for unknown endpoints', async () => {
     const request = new Request('http://example.com/unknown')
     const env = {}
-    const ctx = {
-      waitUntil: () => {},
-      passThroughOnException: () => {}
-    } as ExecutionContext
+    const ctx = createMockExecutionContext()
 
     const response = await worker.fetch(request, env, ctx)
 
