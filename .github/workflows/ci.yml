@@ -29,7 +29,12 @@ jobs:
       - run: nci
 
       - name: Install Playwright Browsers
-        run: pnpm --filter ${{ matrix.package }} exec playwright install --with-deps chromium
+        run: |
+          if pnpm --filter ${{ matrix.package }} exec playwright --version >/dev/null 2>&1; then
+            pnpm --filter ${{ matrix.package }} exec playwright install --with-deps chromium
+          else
+            echo "Playwright not found in ${{ matrix.package }}, skipping browser installation"
+          fi
 
       - run: pnpm --filter ${{ matrix.package }} typecheck
       - run: pnpm --filter ${{ matrix.package }} test
