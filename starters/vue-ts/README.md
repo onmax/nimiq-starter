@@ -2,6 +2,13 @@
 
 A modern Vue 3 starter template with complete Nimiq blockchain integration, featuring live consensus monitoring and real-time block updates.
 
+## 🚀 Quick Start
+
+```bash
+npx degit onmax/nimiq-starter/starters/vue-ts my-nimiq-app
+cd my-nimiq-app && pnpm install && pnpm dev
+```
+
 ## Features
 
 - ⚡️ **Vite** for fast development and building

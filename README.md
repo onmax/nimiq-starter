@@ -6,44 +6,89 @@ A monorepo containing starter templates for integrating Nimiq web client with di
 
 Nimiq is a browser-based blockchain and ecosystem that makes cryptocurrencies accessible to everyone. The Nimiq web client allows you to build decentralized applications directly in the browser using WebAssembly, without requiring any server-side infrastructure.
 
-## Available Starters
+## 🚀 Quick Start - Choose Your Template
 
-### 🚀 Vue 3 + TypeScript (`starters/vue-ts`)
+Pick your preferred framework and run one command to get started:
 
-A modern Vue 3 starter template with complete Nimiq integration, featuring:
-
-- ⚡️ **Vite** for lightning-fast development
-- 🏷️ **TypeScript** for type safety
-- 🎨 **Vue 3 Composition API** for modern reactive components
-- 🌐 **Nimiq Core (@nimiq/core)** fully integrated
-- 🔧 **WebAssembly** configuration for optimal performance
-- 📡 **Live blockchain updates** with reactive consensus status
-- 🧪 **Vitest** for comprehensive testing
-- 📝 **ESLint + Prettier** for code quality
-
-**Demo Features:**
-- Initialize Nimiq client with real-time status updates
-- Live consensus state monitoring (Connecting → Syncing → Established)
-- Real-time block height updates as new blocks are mined
-- Reactive UI that responds to blockchain events
-
-## Quick Start
-
-### Clone a specific starter
-
+### Vue 3 + TypeScript
 ```bash
-# Vue TypeScript starter
-npx degit antfu/nimiq-starter-monorepo/starters/vue-ts my-nimiq-app
-cd my-nimiq-app
-pnpm install
-pnpm dev
+npx degit onmax/nimiq-starter/starters/vue-ts my-nimiq-app
+cd my-nimiq-app && pnpm install && pnpm dev
 ```
 
-### Work with the full monorepo
+### React + TypeScript
+```bash
+npx degit onmax/nimiq-starter/starters/react-ts my-nimiq-app
+cd my-nimiq-app && pnpm install && pnpm dev
+```
+
+### Next.js + TypeScript
+```bash
+npx degit onmax/nimiq-starter/starters/next-js my-nimiq-app
+cd my-nimiq-app && pnpm install && pnpm dev
+```
+
+### Cloudflare Workers + D1
+```bash
+npx degit onmax/nimiq-starter/starters/cloudflare-d1 my-nimiq-worker
+cd my-nimiq-worker && pnpm install && pnpm dev
+```
+
+### Alternative using giget
+```bash
+# Vue
+npx giget@latest gh:onmax/nimiq-starter/starters/vue-ts my-nimiq-app
+
+# React
+npx giget@latest gh:onmax/nimiq-starter/starters/react-ts my-nimiq-app
+
+# Next.js
+npx giget@latest gh:onmax/nimiq-starter/starters/next-js my-nimiq-app
+
+# Cloudflare Workers
+npx giget@latest gh:onmax/nimiq-starter/starters/cloudflare-d1 my-nimiq-worker
+```
+
+## 📚 Available Templates
+
+### 🎨 Vue 3 + TypeScript
+**Perfect for**: Modern reactive web apps with composition API
+- ⚡️ Vite for lightning-fast development
+- 🏷️ Full TypeScript support
+- 🎨 Vue 3 Composition API with reactive Nimiq integration
+- 📡 Real-time blockchain updates and consensus monitoring
+- 🧪 Vitest for unit and browser testing
+- 📝 ESLint + Prettier for code quality
+
+### ⚛️ React + TypeScript
+**Perfect for**: Component-based web applications
+- ⚡️ Vite-powered React 18 with TypeScript
+- 🪝 Custom `useNimiq` hook for blockchain state management
+- 🎨 Minimal Pico CSS styling
+- 🧪 Browser testing with Vitest + Playwright
+- 📱 Modern React patterns with hooks
+
+### 🔥 Next.js + TypeScript
+**Perfect for**: Full-stack applications with SSR/SSG
+- 🚀 Next.js with App Router
+- 🏷️ TypeScript throughout
+- 🌐 Server and client-side Nimiq integration
+- 📦 Optimized bundling and WebAssembly support
+
+### ☁️ Cloudflare Workers + D1
+**Perfect for**: Serverless blockchain APIs
+- 🌩️ Cloudflare Workers runtime with D1 database
+- 🪶 Lightweight pico sync mode
+- 📡 Single `/block-number` API endpoint
+- ⚡️ Edge computing with WebAssembly support
+
+## 🏗️ Full Monorepo Development
+
+Want to work with all templates or contribute? Clone the full repository:
 
 ```bash
-git clone https://github.com/antfu/nimiq-starter-monorepo.git
-cd nimiq-starter-monorepo
+git clone https://github.com/onmax/nimiq-starter.git
+cd nimiq-starter
 pnpm install
 
 # Start all development servers
@@ -52,25 +97,26 @@ pnpm dev
 # Build all starters
 pnpm build
 
-# Run tests
+# Run tests across all projects
 pnpm test
+
+# Lint and format
+pnpm lint
+pnpm typecheck
 ```
 
-## Project Structure
+## 📁 Project Structure
 
 ```
-nimiq-starter-monorepo/
+nimiq-starter/
 ├── starters/
-│   └── vue-ts/              # Vue 3 + TypeScript + Nimiq
-│       ├── src/
-│       │   ├── components/
-│       │   │   └── NimiqDemo.vue  # Live blockchain demo
-│       │   └── App.vue
-│       ├── vite.config.ts   # Vite + WebAssembly config
-│       └── package.json
-├── docs/                    # Documentation (planned)
-├── package.json            # Root workspace configuration
-└── pnpm-workspace.yaml     # Workspace configuration
+│   ├── vue-ts/              # Vue 3 + TypeScript starter
+│   ├── react-ts/            # React + TypeScript starter
+│   ├── next-js/             # Next.js starter
+│   └── cloudflare-d1/       # Cloudflare Workers starter
+├── docs/                    # Documentation
+├── package.json             # Root workspace configuration
+└── pnpm-workspace.yaml      # pnpm workspace configuration
 ```
 
 ## Nimiq Integration Guide
@@ -109,13 +155,14 @@ Each starter includes:
    const client = await Nimiq.Client.create(config.build())
    ```
 
-## Future Starters
+## 🔮 Future Templates
 
 Coming soon:
-- **React + TypeScript** starter
-- **Vanilla JavaScript** starter
-- **Svelte + TypeScript** starter
-- **Next.js** starter
+- **Svelte + TypeScript** - Component-based development with Svelte
+- **Vanilla TypeScript** - Pure TypeScript without frameworks
+- **Nuxt 3** - Full-stack Vue.js framework
+- **Astro** - Modern static site generator
+- **Node.js API** - Server-side blockchain integration
 
 ## Contributing
 
@@ -127,6 +174,6 @@ Contributions are welcome! To add a new framework starter:
 4. Add documentation and update this README
 5. Ensure all tests pass
 
-## License
+## 📄 License
 
-[MIT](./LICENSE) License © [Anthony Fu](https://github.com/antfu)
+MIT License
