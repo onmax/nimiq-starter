@@ -114,7 +114,6 @@ nimiq-starter/
 │   ├── react-ts/            # React + TypeScript starter
 │   ├── next-js/             # Next.js starter
 │   └── cloudflare-d1/       # Cloudflare Workers starter
-├── docs/                    # Documentation
 ├── package.json             # Root workspace configuration
 └── pnpm-workspace.yaml      # pnpm workspace configuration
 ```
