@@ -63,7 +63,4 @@ onlyBuiltDependencies:
   - esbuild
   - simple-git-hooks
 
-patchedDependencies:
-  '@nimiq/core': patches/@nimiq__core.patch
-
 shellEmulator: true
