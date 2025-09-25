@@ -10,6 +10,6 @@
     "docs:preview": "vitepress preview"
   },
   "devDependencies": {
-    "vitepress": "catalog:"
+    "vitepress": "^1.3.4"
   }
 }

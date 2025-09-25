@@ -31,22 +31,22 @@
     "prepare": "simple-git-hooks"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "catalog:cli",
-    "@antfu/ni": "catalog:cli",
-    "@antfu/utils": "catalog:inlined",
-    "@types/node": "catalog:types",
-    "bumpp": "catalog:cli",
-    "eslint": "catalog:cli",
-    "lint-staged": "catalog:cli",
-    "simple-git-hooks": "catalog:cli",
-    "tinyexec": "catalog:testing",
-    "tsdown": "catalog:cli",
-    "tsx": "catalog:cli",
-    "typescript": "catalog:cli",
-    "vite": "catalog:cli",
-    "vitest": "catalog:testing",
-    "vitest-package-exports": "catalog:testing",
-    "yaml": "catalog:testing"
+    "@antfu/eslint-config": "^5.4.1",
+    "@antfu/ni": "^26.0.1",
+    "@antfu/utils": "^9.2.1",
+    "@types/node": "^24.5.2",
+    "bumpp": "^10.2.3",
+    "eslint": "^9.36.0",
+    "lint-staged": "^16.2.0",
+    "simple-git-hooks": "^2.13.1",
+    "tinyexec": "^1.0.1",
+    "tsdown": "^0.15.4",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.7",
+    "vitest": "^3.2.4",
+    "vitest-package-exports": "^0.1.1",
+    "yaml": "^2.8.1"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm i --frozen-lockfile --ignore-scripts --offline && npx lint-staged"
