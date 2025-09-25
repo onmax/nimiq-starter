@@ -1,0 +1,48 @@
+diff --git a/web/crypto.js b/web/crypto.js
+index c93452a1dfa8b865c7f9900b1efad558a24480f3..fcd5a2e703f59871c44ab0633eabda252ce3fdc4 100644
+--- a/web/crypto.js
++++ b/web/crypto.js
+@@ -2,8 +2,8 @@
+ // global scope. We import the generated JS file to make `wasm_bindgen`
+ // available which we need to initialize our WASM code.
+ importScripts(
+-    './comlink.min.js',
+-    './crypto-wasm/index.js',
++    '/pkg/comlink.min.js',
++    '/pkg/crypto-wasm/index.js',
+ );
+ 
+ const { CryptoUtils } = wasm_bindgen;
+@@ -12,7 +12,7 @@ const { CryptoUtils } = wasm_bindgen;
+     console.log('Initializing crypto WASM worker');
+ 
+     // Load the wasm file by awaiting the Promise returned by `wasm_bindgen`.
+-    await wasm_bindgen('./crypto-wasm/index_bg.wasm');
++    await wasm_bindgen('/pkg/crypto-wasm/index_bg.wasm');
+ 
+     Comlink.expose(CryptoUtils);
+ 
+diff --git a/web/worker.js b/web/worker.js
+index f2731671c909ef69a10a63079362934d1152ac7f..6b41e1197832e4e6bf55e600409870899ae216fe 100644
+--- a/web/worker.js
++++ b/web/worker.js
+@@ -2,8 +2,8 @@
+ // global scope. We import the generated JS file to make `wasm_bindgen`
+ // available which we need to initialize our WASM code.
+ importScripts(
+-    './comlink.min.js',
+-    './worker-wasm/index.js',
++    '/pkg/comlink.min.js',
++    '/pkg/worker-wasm/index.js',
+ );
+ 
+ const { Client } = wasm_bindgen;
+@@ -32,7 +32,7 @@ async function init(config) {
+     console.log('Initializing client WASM worker');
+ 
+     // Load the wasm file by awaiting the Promise returned by `wasm_bindgen`.
+-    await wasm_bindgen('./worker-wasm/index_bg.wasm');
++    await wasm_bindgen('/pkg/worker-wasm/index_bg.wasm');
+ 
+     const client = await Client.create(config);
+     Comlink.expose(client);

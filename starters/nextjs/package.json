@@ -15,6 +15,7 @@
     "@nimiq/core": "catalog:",
     "@picocss/pico": "^2.1.1",
     "buffer": "^6.0.3",
+    "comlink": "^4.4.2",
     "next": "15.5.4",
     "react": "19.1.0",
     "react-dom": "19.1.0"
@@ -26,5 +27,18 @@
     "@types/react-dom": "^19",
     "playwright": "catalog:",
     "typescript": "catalog:cli"
+  },
+  "browserslist": {
+    "production": [
+      "Chrome >= 80",
+      "Firefox >= 90",
+      "Safari >= 13.1",
+      "Edge >= 90"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

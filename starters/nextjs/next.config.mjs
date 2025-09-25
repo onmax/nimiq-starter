@@ -1,29 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Specify the workspace root to silence warning
-  outputFileTracingRoot: '/home/maxi/nimiq/starter',
-
-  webpack: (config, { isServer, dev }) => {
-    // WebAssembly support - following wasm-next reference pattern
-    config.output.webassemblyModuleFilename =
-      isServer && !dev
-        ? '../static/wasm/[modulehash].wasm'
-        : 'static/wasm/[modulehash].wasm'
-
+  webpack: (config, { isServer }) => {
+    // WebAssembly support for Nimiq
     config.experiments = {
       ...config.experiments,
       asyncWebAssembly: true,
       topLevelAwait: true,
     }
 
-    // Infrastructure logging for debugging
-    config.infrastructureLogging = {
-      debug: /PackFileCache/,
-    }
-
-    // Client-side only configurations
-    if (!isServer) {
-      // Node.js polyfills/fallbacks for browser
+    // Exclude Nimiq from server-side bundling entirely
+    if (isServer) {
+      config.externals = config.externals || []
+      config.externals.push('@nimiq/core')
+      config.externals.push('@nimiq/core/web')
+    } else {
+      // Browser-side configuration
       config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
