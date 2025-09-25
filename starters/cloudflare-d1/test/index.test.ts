@@ -6,6 +6,7 @@ function createMockExecutionContext(): ExecutionContext {
   return {
     waitUntil: () => {},
     passThroughOnException: () => {},
+    props: {},
   }
 }
 
