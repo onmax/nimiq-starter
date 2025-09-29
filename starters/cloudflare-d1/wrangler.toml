@@ -1,4 +1,4 @@
-name = "nimiq-cloudflare-d1"
+name = "nimiq-starter-cloudflare"
 main = "src/index.ts"
 compatibility_date = "2024-12-25"
 compatibility_flags = [ "nodejs_compat" ]

@@ -15,12 +15,13 @@ export default {
 
         return Response.json({
           blockNumber,
-          success: true
+          success: true,
         })
-      } catch (error) {
+      }
+      catch (error) {
         return Response.json({
           error: error instanceof Error ? error.message : 'Unknown error',
-          success: false
+          success: false,
         }, { status: 500 })
       }
     }
