@@ -12,28 +12,13 @@ export default defineConfig({
     vue(),
     vueDevTools(),
     wasm(),
-    topLevelAwait({
-      // The module that contains the top-level await
-      promiseExportName: '__tla',
-      // The function to generate the promise export name
-      promiseImportName: i => `__tla_${i}`,
-    }),
+    topLevelAwait(),
   ],
   worker: {
     format: 'es',
-    rollupOptions: {
-      output: {
-        entryFileNames: 'assets/[name]-[hash].js',
-        chunkFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash].[ext]',
-      },
-    },
     plugins: () => [
       wasm(),
-      topLevelAwait({
-        promiseExportName: '__tla',
-        promiseImportName: i => `__tla_${i}`,
-      }),
+      topLevelAwait(),
     ],
   },
   resolve: {
@@ -43,17 +28,5 @@ export default defineConfig({
   },
   optimizeDeps: {
     exclude: ['@nimiq/core'],
-  },
-  // Additional build configuration for Nimiq
-  build: {
-    target: 'esnext',
-    rollupOptions: {
-      output: {
-        format: 'es',
-        entryFileNames: 'assets/[name]-[hash].js',
-        chunkFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash].[ext]',
-      },
-    },
   },
 })
