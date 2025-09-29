@@ -1,0 +1,18 @@
+diff --git a/bundler/main-wasm/index.js b/bundler/main-wasm/index.js
+index e933a032a55715e7ba3c7fe4c44949212f5ac499..9ce1989f2556faef79b3124dc7097693cece7ab0 100644
+--- a/bundler/main-wasm/index.js
++++ b/bundler/main-wasm/index.js
+@@ -1,5 +1,11 @@
+ import * as wasm from "./index_bg.wasm";
+ export * from "./index_bg.js";
+ import { __wbg_set_wasm } from "./index_bg.js";
+-__wbg_set_wasm(wasm);
+-wasm.__wbindgen_start();
++
++const wasmExports = typeof wasm === 'object' && wasm !== null && 'default' in wasm ? wasm.default : wasm;
++
++__wbg_set_wasm(wasmExports);
++
++if (typeof wasmExports?.__wbindgen_start === 'function') {
++    wasmExports.__wbindgen_start();
++}
