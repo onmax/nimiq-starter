@@ -21,6 +21,13 @@ export default defineConfig({
   ],
   worker: {
     format: 'es',
+    rollupOptions: {
+      output: {
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]',
+      },
+    },
     plugins: () => [
       wasm(),
       topLevelAwait({
@@ -43,6 +50,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         format: 'es',
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]',
       },
     },
   },
