@@ -1,66 +1,58 @@
-import * as Nimiq from '@nimiq/core'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 export function useNimiq() {
-  const [client, setClient] = useState<Nimiq.Client | null>(null)
+  const clientRef = useRef<any | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string>()
-  const [consensus, setConsensus] = useState<Nimiq.ConsensusState | 'Not connected'>('Not connected')
+  const [consensus, setConsensus] = useState<string>('Not connected')
   const [headBlockNumber, setHeadBlockNumber] = useState<number>(0)
 
-  const consensusListenerRef = useRef<number | null>(null)
-  const headListenerRef = useRef<number | null>(null)
-
   const initializeNimiq = useCallback(async () => {
-    if (client)
+    if (clientRef.current)
       return
 
     try {
       setLoading(true)
       setError(undefined)
 
+      // Use bundler version for Next.js webpack compatibility
+      const Nimiq = await import('@nimiq/core')
+
       const config = new Nimiq.ClientConfiguration()
       config.syncMode('pico')
       const newClient = await Nimiq.Client.create(config.build())
 
-      consensusListenerRef.current = await newClient.addConsensusChangedListener((state) => {
+      newClient.addConsensusChangedListener((state) => {
         setConsensus(state)
       })
 
-      headListenerRef.current = await newClient.addHeadChangedListener(async (hash) => {
+      newClient.addHeadChangedListener(async (hash) => {
         const block = await newClient.getBlock(hash)
         if (block) {
           setHeadBlockNumber(block.height)
         }
       })
 
-      setClient(newClient)
+      clientRef.current = newClient
     }
     catch (err) {
       setError(err instanceof Error ? err.message : JSON.stringify(err))
-      setClient(null)
+      clientRef.current = null
     }
     finally {
       setLoading(false)
     }
-  }, [client])
+  }, [])
 
   useEffect(() => {
     return () => {
-      if (client) {
-        if (consensusListenerRef.current !== null) {
-          client.removeListener(consensusListenerRef.current).catch(console.error)
-        }
-        if (headListenerRef.current !== null) {
-          client.removeListener(headListenerRef.current).catch(console.error)
-        }
-      }
+      clientRef.current = null
     }
-  }, [client])
+  }, [])
 
   return {
     initializeNimiq,
-    client,
+    client: clientRef.current,
     loading,
     error,
     consensus,

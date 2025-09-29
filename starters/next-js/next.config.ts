@@ -7,51 +7,33 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: path.join(process.cwd(), '../../../'),
 
   webpack: (config, { isServer }) => {
-    // Enable WebAssembly
+    // Enable WebAssembly and top-level await
     config.experiments = {
       ...config.experiments,
       asyncWebAssembly: true,
       topLevelAwait: true,
     }
 
-    // Configure module rules for WebAssembly
-    config.module.rules.push({
-      test: /\.wasm$/,
-      type: 'webassembly/async',
-    })
-
-    // Enhanced module resolution for @nimiq/core
+    // Configure fallbacks for Node.js modules
     config.resolve = {
       ...config.resolve,
-      alias: {
-        ...config.resolve?.alias,
-        '@nimiq/core': path.resolve('./node_modules/@nimiq/core/bundler/index.js'),
-      },
       fallback: {
         ...config.resolve?.fallback,
         path: false,
         fs: false,
+        crypto: false,
+        stream: false,
+        buffer: false,
+        util: false,
       },
-      // Add .js extension for ESM imports
-      extensions: [...(config.resolve?.extensions || []), '.js', '.mjs'],
     }
 
-    // Exclude @nimiq/core from optimization
-    if (!isServer) {
-      config.optimization = {
-        ...config.optimization,
-        splitChunks: {
-          ...config.optimization?.splitChunks,
-          cacheGroups: {
-            ...(config.optimization?.splitChunks as any)?.cacheGroups,
-            nimiq: {
-              test: /@nimiq/,
-              name: 'nimiq',
-              chunks: 'all',
-              priority: 10,
-            },
-          },
-        },
+    // Exclude @nimiq/core from server-side bundling entirely
+    if (isServer) {
+      config.externals = config.externals || []
+      if (Array.isArray(config.externals)) {
+        config.externals.push('@nimiq/core')
+        config.externals.push('@nimiq/core/web')
       }
     }
 
