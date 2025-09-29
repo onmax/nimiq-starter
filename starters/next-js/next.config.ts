@@ -3,8 +3,8 @@ import path from 'node:path'
 import process from 'node:process'
 
 const nextConfig: NextConfig = {
-  // Fix workspace root warning
-  outputFileTracingRoot: path.join(process.cwd(), '../../../'),
+  // Fix workspace root warning without overshooting project root on Vercel
+  outputFileTracingRoot: path.join(process.cwd(), '../../'),
 
   webpack: (config, { isServer }) => {
     // Enable WebAssembly and top-level await
