@@ -2,6 +2,10 @@
 
 A modern Vue 3 starter template with complete Nimiq blockchain integration, featuring live consensus monitoring and real-time block updates.
 
+## Live Demo
+
+[https://nimiq-starter-vue-ts.vercel.app](https://nimiq-starter-vue-ts.vercel.app)
+
 ## Quick Start
 
 ```bash

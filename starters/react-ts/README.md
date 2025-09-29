@@ -2,6 +2,10 @@
 
 A minimal starter template for integrating Nimiq blockchain with React and TypeScript, built with Vite.
 
+## Live Demo
+
+[https://nimiq-starter-react-ts.vercel.app](https://nimiq-starter-react-ts.vercel.app)
+
 ## Quick Start
 
 ```bash

@@ -2,6 +2,10 @@
 
 A Next.js starter template with Nimiq blockchain integration.
 
+## Live Demo
+
+[https://nimiq-starter-next-js.vercel.app](https://nimiq-starter-next-js.vercel.app)
+
 ## Quick Start
 
 ```bash

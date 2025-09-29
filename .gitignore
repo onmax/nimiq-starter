@@ -92,3 +92,4 @@ yarn.lock
 # Task files
 # tasks.json
 # tasks/ 
+.vercel
