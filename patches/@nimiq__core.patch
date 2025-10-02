@@ -1,18 +1,115 @@
 diff --git a/bundler/main-wasm/index.js b/bundler/main-wasm/index.js
-index e933a032a55715e7ba3c7fe4c44949212f5ac499..9ce1989f2556faef79b3124dc7097693cece7ab0 100644
 --- a/bundler/main-wasm/index.js
 +++ b/bundler/main-wasm/index.js
-@@ -1,5 +1,11 @@
- import * as wasm from "./index_bg.wasm";
+@@ -1,5 +1,34 @@
+-import * as wasm from "./index_bg.wasm";
++import * as wasmModule from "./index_bg.wasm";
  export * from "./index_bg.js";
- import { __wbg_set_wasm } from "./index_bg.js";
+-import { __wbg_set_wasm } from "./index_bg.js";
 -__wbg_set_wasm(wasm);
 -wasm.__wbindgen_start();
++import * as wasmBindings from "./index_bg.js";
 +
-+const wasmExports = typeof wasm === 'object' && wasm !== null && 'default' in wasm ? wasm.default : wasm;
++const { __wbg_set_wasm } = wasmBindings;
++
++let wasmExports = wasmModule;
++
++const hasClientConfigFactory = value => typeof value?.clientconfiguration_new === "function";
++
++if (!hasClientConfigFactory(wasmExports)) {
++  const candidate = wasmModule?.default ?? wasmModule;
++
++  try {
++    if (candidate instanceof WebAssembly.Module) {
++      const instance = new WebAssembly.Instance(candidate, {
++        "./index_bg.js": wasmBindings,
++      });
++      wasmExports = instance.exports;
++    }
++    else if (candidate?.instance?.exports && hasClientConfigFactory(candidate.instance.exports)) {
++      wasmExports = candidate.instance.exports;
++    }
++  }
++  catch (error) {
++    console.warn("Failed to instantiate @nimiq/core wasm module", error);
++  }
++}
 +
 +__wbg_set_wasm(wasmExports);
 +
-+if (typeof wasmExports?.__wbindgen_start === 'function') {
-+    wasmExports.__wbindgen_start();
++if (typeof wasmExports?.__wbindgen_start === "function") {
++  wasmExports.__wbindgen_start();
 +}
+
+diff --git a/bundler/worker-wasm/index.js b/bundler/worker-wasm/index.js
+--- a/bundler/worker-wasm/index.js
++++ b/bundler/worker-wasm/index.js
+@@ -1,5 +1,34 @@
+-import * as wasm from "./index_bg.wasm";
++import * as wasmModule from "./index_bg.wasm";
+ export * from "./index_bg.js";
+-import { __wbg_set_wasm } from "./index_bg.js";
+-__wbg_set_wasm(wasm);
+-wasm.__wbindgen_start();
++import * as wasmBindings from "./index_bg.js";
++
++const { __wbg_set_wasm } = wasmBindings;
++
++let wasmExports = wasmModule;
++
++const hasClientConfigFactory = value => typeof value?.clientconfiguration_new === "function";
++
++if (!hasClientConfigFactory(wasmExports)) {
++  const candidate = wasmModule?.default ?? wasmModule;
++
++  try {
++    if (candidate instanceof WebAssembly.Module) {
++      const instance = new WebAssembly.Instance(candidate, {
++        "./index_bg.js": wasmBindings,
++      });
++      wasmExports = instance.exports;
++    }
++    else if (candidate?.instance?.exports && hasClientConfigFactory(candidate.instance.exports)) {
++      wasmExports = candidate.instance.exports;
++    }
++  }
++  catch (error) {
++    console.warn("Failed to instantiate @nimiq/core worker wasm module", error);
++  }
++}
++
++__wbg_set_wasm(wasmExports);
++
++if (typeof wasmExports?.__wbindgen_start === "function") {
++  wasmExports.__wbindgen_start();
++}
+
+diff --git a/bundler/index.js b/bundler/index.js
+--- a/bundler/index.js
++++ b/bundler/index.js
+@@ -28,3 +28,9 @@
+ export * from './main-wasm/index.js';
+ export { Client };
+ export * from '../lib/bundler/index.mjs';
++
++// Add init function for compatibility with web version
++const init = async () => {
++  // No-op: WASM is already initialized by main-wasm/index.js
++};
++export default init;
+
+diff --git a/package.json b/package.json
+--- a/package.json
++++ b/package.json
+@@ -26,6 +26,11 @@
+       "browser": "./web/index.js",
+       "import": "./web/index.js",
+       "types": "./types/web.d.ts"
++    },
++    "./bundler/worker-wasm": {
++      "import": "./bundler/worker-wasm/index.js",
++      "browser": "./bundler/worker-wasm/index.js",
++      "types": "./types/wasm/bundler.d.ts"
+     }
+   },
+   "homepage": "https://nimiq.com",

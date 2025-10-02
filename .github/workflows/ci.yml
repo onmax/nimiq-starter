@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package: [nimiq-vue-ts, nimiq-react-ts, nimiq-nextjs]
+        package: [nimiq-vue-ts, nimiq-react-ts, nimiq-nextjs, nimiq-hub-api-ts]
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

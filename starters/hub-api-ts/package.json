@@ -1,0 +1,32 @@
+{
+  "name": "nimiq-hub-api-ts",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest --browser.enabled --browser.headless",
+    "build-only": "vite build",
+    "typecheck": "tsc --build --noEmit"
+  },
+  "dependencies": {
+    "@nimiq/hub-api": "^1.6.5"
+  },
+  "devDependencies": {
+    "@tsconfig/node22": "^22.0.2",
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^24.5.2",
+    "@vitest/browser": "^3.2.4",
+    "jiti": "^2.4.2",
+    "jsdom": "^26.1.0",
+    "playwright": "^1.55.1",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.7",
+    "vitest": "^3.2.4"
+  }
+}
