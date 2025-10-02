@@ -4,10 +4,10 @@ function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-async function findElement<T extends Element>(selector: string, timeout = 10000): Promise<T> {
+async function waitForElement(selector: string, timeout = 10000): Promise<HTMLElement> {
   const deadline = Date.now() + timeout
   while (Date.now() < deadline) {
-    const element = document.querySelector(selector) as T | null
+    const element = document.querySelector(selector) as HTMLElement | null
     if (element)
       return element
     await sleep(100)
@@ -15,62 +15,57 @@ async function findElement<T extends Element>(selector: string, timeout = 10000)
   throw new Error(`Element ${selector} not found within ${timeout}ms`)
 }
 
-async function waitForText(selector: string, text: string, timeout = 60000) {
-  const deadline = Date.now() + timeout
-  const normalizedTarget = text.toLowerCase()
-  while (Date.now() < deadline) {
-    const current = document.querySelector(selector)?.textContent?.trim()
-    if (current?.toLowerCase().includes(normalizedTarget))
-      return
-    await sleep(500)
-  }
-  throw new Error(`Timed out waiting for "${text}" in ${selector}`)
-}
-
-it('loads Hub API and renders UI correctly', async () => {
-  if (typeof window === 'undefined' || typeof document === 'undefined') {
-    throw new TypeError('This test requires a browser environment with window and document objects. Run with: pnpm test')
-  }
-
-  // Load the app by injecting the HTML
+it('opens Hub popup when clicking Choose Address button', async () => {
+  // Load the app HTML
   const response = await fetch('/index.html')
   const html = await response.text()
 
-  // Extract body content and inject
+  // Extract and inject body content
   const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i)
   if (bodyMatch) {
     document.body.innerHTML = bodyMatch[1]
   }
 
-  // Load the main script
+  // Track if Hub popup was opened
+  let hubPopupOpened = false
+  let hubPopupUrl = ''
+
+  // Override window.open to intercept Hub popup
+  const originalOpen = window.open
+  window.open = function (...args: Parameters<typeof window.open>) {
+    const url = args[0]?.toString() || ''
+
+    // Check if it's the Hub
+    if (url.includes('hub.nimiq-testnet.com') || url.includes('hub.nimiq.com')) {
+      console.log('✅ Hub popup intercepted:', url)
+      hubPopupOpened = true
+      hubPopupUrl = url
+      // Don't actually open the popup in tests
+      return null
+    }
+
+    return originalOpen.apply(window, args)
+  } as typeof window.open
+
+  // Import and initialize the app
   await import('../main')
 
-  // Wait for buttons to be present
-  const chooseAddressBtn = await findElement<HTMLButtonElement>('#choose-address')
-  const signMessageBtn = await findElement<HTMLButtonElement>('#sign-message')
-  const checkoutBtn = await findElement<HTMLButtonElement>('#checkout')
+  // Wait for the Choose Address button
+  const chooseAddressBtn = await waitForElement('#choose-address')
 
-  // Verify buttons exist
-  expect(chooseAddressBtn).toBeTruthy()
-  expect(signMessageBtn).toBeTruthy()
-  expect(checkoutBtn).toBeTruthy()
+  // Click the button
+  chooseAddressBtn.click()
 
-  // Verify initial status text
-  await waitForText('#status', 'Click a button to start')
+  // Give it time to trigger the popup
+  await sleep(1000)
 
-  console.log('✅ Hub API test passed: All buttons rendered and status is correct')
+  // Verify Hub popup was opened
+  expect(hubPopupOpened).toBe(true)
+  expect(hubPopupUrl).toContain('hub.nimiq')
+
+  console.log('✅ Hub API integration test passed: Hub popup opens correctly')
+  console.log(`   Hub URL: ${hubPopupUrl}`)
+
+  // Restore original window.open
+  window.open = originalOpen
 }, 30000)
-
-it('initializes Hub API without errors', async () => {
-  if (typeof window === 'undefined') {
-    throw new TypeError('This test requires a browser environment')
-  }
-
-  // Re-import to test initialization
-  const module = await import('../main')
-
-  // If we get here without errors, initialization succeeded
-  expect(module).toBeDefined()
-
-  console.log('✅ Hub API initialization test passed')
-}, 10000)
