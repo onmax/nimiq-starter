@@ -34,6 +34,12 @@ npx degit onmax/nimiq-starter/starters/cloudflare-d1 my-nimiq-worker
 cd my-nimiq-worker && pnpm install && pnpm dev
 ```
 
+### Hub API + TypeScript (Vanilla)
+```bash
+npx degit onmax/nimiq-starter/starters/hub-api-ts my-nimiq-app
+cd my-nimiq-app && pnpm install && pnpm dev
+```
+
 ## Available Templates
 
 ### Vue 3 + TypeScript
@@ -67,6 +73,15 @@ cd my-nimiq-worker && pnpm install && pnpm dev
 - 📡 Single `/block-number` API endpoint
 - ⚡️ Edge computing with WebAssembly support
 
+### Hub API + TypeScript (Vanilla)
+**Perfect for**: Wallet integration and payments
+- 🔐 Nimiq Hub API for secure wallet operations
+- ⚡️ Vite for fast development
+- 🏷️ Full TypeScript support
+- 💳 Payment requests, message signing, address selection
+- 🧪 Playwright browser tests with Vitest
+- 📦 Zero framework dependencies
+
 ## Full Monorepo Development
 
 Want to work with all templates or contribute? Clone the full repository:
@@ -98,7 +113,8 @@ nimiq-starter/
 │   ├── vue-ts/              # Vue 3 + TypeScript starter
 │   ├── react-ts/            # React + TypeScript starter
 │   ├── next-js/             # Next.js starter
-│   └── cloudflare-d1/       # Cloudflare Workers starter
+│   ├── cloudflare-d1/       # Cloudflare Workers starter
+│   └── hub-api-ts/          # Hub API + TypeScript starter
 ├── package.json             # Root workspace configuration
 └── pnpm-workspace.yaml      # pnpm workspace configuration
 ```
@@ -106,6 +122,7 @@ nimiq-starter/
 ## Learn More
 
 - [Nimiq Web Client Documentation](http://nimiq.com/developers/web-client)
+- [Nimiq Hub API Documentation](https://nimiq.github.io/hub)
 - [Nimiq Developer Hub](https://nimiq.com/developers/)
 
 ## Future Templates
