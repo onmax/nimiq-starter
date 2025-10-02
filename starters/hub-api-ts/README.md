@@ -2,6 +2,10 @@
 
 A minimal TypeScript + Vite starter template for integrating the Nimiq Hub API.
 
+## Live Demo
+
+🔗 [https://hub-api-ts.vercel.app](https://hub-api-ts.vercel.app)
+
 ## Features
 
 - 🚀 Vite for fast development and optimized builds
