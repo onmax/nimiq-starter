@@ -82,6 +82,15 @@ cd my-nimiq-app && pnpm install && pnpm dev
 - 🧪 Playwright browser tests with Vitest
 - 📦 Zero framework dependencies
 
+## Live Demos
+
+Try out the deployed starters:
+
+- [Vue 3 + TypeScript](https://nimiq-starter-vue-ts.vercel.app)
+- [React + TypeScript](https://nimiq-starter-react-ts.vercel.app)
+- [Next.js](https://nimiq-starter-next-js.vercel.app)
+- [Hub API + TypeScript](https://hub-api-ts.vercel.app)
+
 ## Full Monorepo Development
 
 Want to work with all templates or contribute? Clone the full repository:
