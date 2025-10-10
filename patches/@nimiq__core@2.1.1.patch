@@ -1,0 +1,67 @@
+diff --git a/bundler/worker-wasm/index.js b/bundler/worker-wasm/index.js
+index e933a032a55715e7ba3c7fe4c44949212f5ac499..8e0a51a40b058860c1e2f0e9a0b15d366a2eb7ef 100644
+--- a/bundler/worker-wasm/index.js
++++ b/bundler/worker-wasm/index.js
+@@ -1,5 +1,39 @@
+-import * as wasm from "./index_bg.wasm";
++import * as wasmModule from "./index_bg.wasm";
+ export * from "./index_bg.js";
+-import { __wbg_set_wasm } from "./index_bg.js";
+-__wbg_set_wasm(wasm);
+-wasm.__wbindgen_start();
++import * as wasmBindings from "./index_bg.js";
++
++const { __wbg_set_wasm } = wasmBindings;
++
++let wasmExports = wasmModule;
++
++const hasClientConfigFactory = value => typeof value?.clientconfiguration_new === "function";
++
++if (!hasClientConfigFactory(wasmExports)) {
++  const candidate = wasmModule?.default ?? wasmModule;
++
++  try {
++    if (candidate instanceof WebAssembly.Module) {
++      const instance = new WebAssembly.Instance(candidate, {
++        "./index_bg.js": wasmBindings,
++      });
++      wasmExports = instance.exports;
++    }
++    else if (candidate?.instance?.exports && hasClientConfigFactory(candidate.instance.exports)) {
++      wasmExports = candidate.instance.exports;
++    }
++  }
++  catch (error) {
++    console.warn("Failed to instantiate @nimiq/core worker wasm module", error);
++  }
++}
++
++__wbg_set_wasm(wasmExports);
++
++// Guard __wbindgen_start to only run once per JavaScript runtime
++// This prevents "SetGlobalDefaultError" when Cloudflare Workers reuse runtimes
++if (typeof wasmExports?.__wbindgen_start === "function") {
++  if (!globalThis.__nimiq_wasm_started) {
++    wasmExports.__wbindgen_start();
++    globalThis.__nimiq_wasm_started = true;
++  }
++}
+diff --git a/package.json b/package.json
+index fe1cafe8d2cb222f9827f3729decafec5d588fff..18479b6acedf2a6ba9c285468740545849e5aeb1 100644
+--- a/package.json
++++ b/package.json
+@@ -26,6 +26,14 @@
+       "browser": "./web/index.js",
+       "import": "./web/index.js",
+       "types": "./types/web.d.ts"
++    },
++    "./bundler/worker-wasm": {
++      "import": "./bundler/worker-wasm/index.js",
++      "browser": "./bundler/worker-wasm/index.js",
++      "types": "./types/wasm/bundler.d.ts"
++    },
++    "./bundler/worker-wasm/index_bg.wasm": {
++      "import": "./bundler/worker-wasm/index_bg.wasm"
+     }
+   },
+   "homepage": "https://nimiq.com",

@@ -4,22 +4,23 @@
     "lib": ["ES2022"],
     "module": "ES2022",
     "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
+    "types": [
+      "@cloudflare/workers-types"
+    ],
     "allowJs": true,
     "checkJs": false,
+    "strict": true,
+    "noImplicitAny": true,
     "declaration": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,
+    "outDir": "dist",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
-    "strict": true,
-    "noImplicitAny": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "types": [
-      "@cloudflare/workers-types"
-    ]
+    "skipLibCheck": true
   },
   "include": [
     "src/**/*",

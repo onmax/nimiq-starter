@@ -3,8 +3,8 @@ packages:
 
 ignoreWorkspaceRootCheck: true
 
-# patchedDependencies:
-#   '@nimiq/core': patches/@nimiq__core.patch
+patchedDependencies:
+  '@nimiq/core@2.1.1': patches/@nimiq__core@2.1.1.patch
 
 onlyBuiltDependencies:
   - '@swc/core'

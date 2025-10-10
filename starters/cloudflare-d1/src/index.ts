@@ -1,17 +1,32 @@
-import * as Nimiq from '@nimiq/core'
+import { Client } from '@nimiq/core/bundler/worker-wasm'
+
+let clientPromise: Promise<Client> | null = null
+let consensusEstablished = false
+
+async function getClient() {
+  if (!clientPromise) {
+    clientPromise = Client.create({ syncMode: 'pico' })
+  }
+
+  const client = await clientPromise
+
+  // Only wait for consensus once per Worker instance
+  if (!consensusEstablished) {
+    await client.waitForConsensusEstablished()
+    consensusEstablished = true
+  }
+
+  return client
+}
 
 export default {
   async fetch(request: Request, _env: Env, _ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url)
 
-    if (url.pathname === '/block-number' && request.method === 'GET') {
+    if (url.pathname === '/' && request.method === 'GET') {
       try {
-        const config = new Nimiq.ClientConfiguration()
-        config.syncMode('pico')
-        const client = await Nimiq.Client.create(config.build())
-
-        const headBlock = await client.getHeadBlock()
-        const blockNumber = headBlock ? headBlock.height : 0
+        const client = await getClient()
+        const blockNumber = await client.getHeadHeight()
 
         return Response.json({
           blockNumber,
