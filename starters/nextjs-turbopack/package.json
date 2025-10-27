@@ -5,11 +5,14 @@
   "private": true,
   "packageManager": "pnpm@10.17.1",
   "scripts": {
+    "predev": "node scripts/copy-worker-deps.mjs",
     "dev": "next dev --turbo",
+    "prebuild": "node scripts/copy-worker-deps.mjs",
     "build": "next build --turbo",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
+    "pretest": "node scripts/copy-worker-deps.mjs",
     "test": "playwright test"
   },
   "dependencies": {

@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   '@nimiq/core@2.2.0':
-    hash: 6e844926bf8576d207e73a0d03d32bf0c0085104f0e6a6146ba7b493ec12fe63
+    hash: 0d864e860513763524788d6569032560444487844cdd810107ad1c407235a73c
     path: patches/@nimiq__core@2.2.0.patch
 
 importers:
@@ -66,7 +66,7 @@ importers:
     dependencies:
       '@nimiq/core':
         specifier: ^2.2.0
-        version: 2.2.0(patch_hash=6e844926bf8576d207e73a0d03d32bf0c0085104f0e6a6146ba7b493ec12fe63)
+        version: 2.2.0(patch_hash=0d864e860513763524788d6569032560444487844cdd810107ad1c407235a73c)
     devDependencies:
       '@cloudflare/vitest-pool-workers':
         specifier: ^0.10.0
@@ -131,7 +131,7 @@ importers:
     dependencies:
       '@nimiq/core':
         specifier: ^2.2.0
-        version: 2.2.0(patch_hash=6e844926bf8576d207e73a0d03d32bf0c0085104f0e6a6146ba7b493ec12fe63)
+        version: 2.2.0(patch_hash=0d864e860513763524788d6569032560444487844cdd810107ad1c407235a73c)
       next:
         specifier: 16.0.0
         version: 16.0.0(@playwright/test@1.56.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -162,7 +162,7 @@ importers:
     dependencies:
       '@nimiq/core':
         specifier: ^2.2.0
-        version: 2.2.0(patch_hash=6e844926bf8576d207e73a0d03d32bf0c0085104f0e6a6146ba7b493ec12fe63)
+        version: 2.2.0(patch_hash=0d864e860513763524788d6569032560444487844cdd810107ad1c407235a73c)
       next:
         specifier: 16.0.0
         version: 16.0.0(@playwright/test@1.56.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -193,7 +193,7 @@ importers:
     dependencies:
       '@nimiq/core':
         specifier: ^2.2.0
-        version: 2.2.0(patch_hash=6e844926bf8576d207e73a0d03d32bf0c0085104f0e6a6146ba7b493ec12fe63)
+        version: 2.2.0(patch_hash=0d864e860513763524788d6569032560444487844cdd810107ad1c407235a73c)
       react:
         specifier: ^19.2.0
         version: 19.2.0
@@ -254,7 +254,7 @@ importers:
     dependencies:
       '@nimiq/core':
         specifier: ^2.2.0
-        version: 2.2.0(patch_hash=6e844926bf8576d207e73a0d03d32bf0c0085104f0e6a6146ba7b493ec12fe63)
+        version: 2.2.0(patch_hash=0d864e860513763524788d6569032560444487844cdd810107ad1c407235a73c)
       vue:
         specifier: ^3.5.22
         version: 3.5.22(typescript@5.9.3)
@@ -5953,7 +5953,7 @@ snapshots:
   '@next/swc-win32-x64-msvc@16.0.0':
     optional: true
 
-  '@nimiq/core@2.2.0(patch_hash=6e844926bf8576d207e73a0d03d32bf0c0085104f0e6a6146ba7b493ec12fe63)':
+  '@nimiq/core@2.2.0(patch_hash=0d864e860513763524788d6569032560444487844cdd810107ad1c407235a73c)':
     dependencies:
       comlink: 4.4.2
       websocket: 1.0.35
@@ -5964,7 +5964,7 @@ snapshots:
 
   '@nimiq/hub-api@1.11.0(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)':
     dependencies:
-      '@nimiq/core': 2.2.0(patch_hash=6e844926bf8576d207e73a0d03d32bf0c0085104f0e6a6146ba7b493ec12fe63)
+      '@nimiq/core': 2.2.0(patch_hash=0d864e860513763524788d6569032560444487844cdd810107ad1c407235a73c)
       '@nimiq/fastspot-api': 1.10.3
       '@nimiq/rpc': 0.4.1
       '@nimiq/utils': 0.5.2

@@ -65,3 +65,29 @@ index bb2ea2bd37240b0bc247a9fefde630ed17931170..9a919e0bec87f496c4799189d45b7b27
      }
    },
    "homepage": "https://nimiq.com",
+diff --git a/web/crypto.js b/web/crypto.js
+index c93452a1dfa8b865c7f9900b1efad558a24480f3..3583885d458459661ce614d0a4a82c936e8151c4 100644
+--- a/web/crypto.js
++++ b/web/crypto.js
+@@ -2,7 +2,7 @@
+ // global scope. We import the generated JS file to make `wasm_bindgen`
+ // available which we need to initialize our WASM code.
+ importScripts(
+-    './comlink.min.js',
++    '/comlink.min.js',
+     './crypto-wasm/index.js',
+ );
+ 
+diff --git a/web/worker.js b/web/worker.js
+index f073c2942eaa0cc8ae3a2631846a30d831a245d3..c095088208af3fbc6930a2f5c3392953fec6a9bd 100644
+--- a/web/worker.js
++++ b/web/worker.js
+@@ -2,7 +2,7 @@
+ // global scope. We import the generated JS file to make `wasm_bindgen`
+ // available which we need to initialize our WASM code.
+ importScripts(
+-    './comlink.min.js',
++    '/comlink.min.js',
+     './worker-wasm/index.js',
+ );
+ 

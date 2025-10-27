@@ -2,7 +2,9 @@
 
 Next.js starter with Nimiq blockchain using Turbopack bundler.
 
-> **⚠️ Known Limitation**: Turbopack doesn't fully support WebAssembly worker scripts yet. Worker loading may fail. Use the webpack version for production.
+> **✅ Technical Solution**: Uses pnpm patch to fix worker `importScripts()` paths for Turbopack compatibility.
+>
+> **⚠️ Performance**: Turbopack dev server startup is significantly slower than webpack. Use webpack version for development/production.
 
 ## Live Demo
 
