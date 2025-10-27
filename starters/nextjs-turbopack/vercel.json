@@ -1,4 +1,4 @@
 {
-  "installCommand": "cd ../.. && pnpm install && cd starters/nextjs-turbopack",
+  "installCommand": "pnpm install --no-frozen-lockfile",
   "buildCommand": "pnpm build"
 }
