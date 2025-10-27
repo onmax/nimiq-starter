@@ -27,3 +27,4 @@ Open [http://localhost:3000](http://localhost:3000) to see the demo.
 ## Attribution
 
 Based on the original implementation by [DovAzencot](https://github.com/DovAzencot/nimiq-nextjs/)
+# Trigger deployment
