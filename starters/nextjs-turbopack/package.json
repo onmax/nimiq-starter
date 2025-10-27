@@ -1,12 +1,12 @@
 {
-  "name": "nimiq-nextjs",
+  "name": "nimiq-nextjs-turbopack",
   "type": "module",
   "version": "0.1.0",
   "private": true,
   "packageManager": "pnpm@10.17.1",
   "scripts": {
-    "dev": "next dev --webpack",
-    "build": "next build --webpack",
+    "dev": "next dev --turbo",
+    "build": "next build --turbo",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",

@@ -1,6 +1,8 @@
-# Nimiq Next.js Starter
+# Nimiq Next.js Starter (Turbopack)
 
-A Next.js starter template with Nimiq blockchain integration.
+Next.js starter with Nimiq blockchain using Turbopack bundler.
+
+> **⚠️ Known Limitation**: Turbopack doesn't fully support WebAssembly worker scripts yet. Worker loading may fail. Use the webpack version for production.
 
 ## Live Demo
 
@@ -9,7 +11,7 @@ A Next.js starter template with Nimiq blockchain integration.
 ## Quick Start
 
 ```bash
-npx degit onmax/nimiq-starter/starters/next-js my-nimiq-app
+npx degit onmax/nimiq-starter/starters/nextjs-turbopack my-nimiq-app
 cd my-nimiq-app && pnpm install && pnpm dev
 ```
 
