@@ -9,6 +9,22 @@ const nextConfig: NextConfig = {
 
   // Note: Use --webpack flag in package.json scripts
   // Turbopack doesn't support asyncWebAssembly yet, so we use webpack
+  // Empty turbopack config silences the Turbopack/webpack warning
+  turbopack: {},
+
+  // Rewrite Nimiq worker dependencies from chunks dir to public dir in dev mode
+  async rewrites() {
+    return [
+      {
+        source: '/_next/static/chunks/comlink.min.js',
+        destination: '/comlink.min.js',
+      },
+      {
+        source: '/_next/static/chunks/worker-wasm/:path*',
+        destination: '/worker-wasm/:path*',
+      },
+    ]
+  },
 
   webpack: (config, { isServer }) => {
     // Enable WebAssembly and top-level await

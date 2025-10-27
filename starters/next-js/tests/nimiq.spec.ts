@@ -1,6 +1,10 @@
 import { expect, test } from '@playwright/test'
 
 test('connects to Nimiq and reports a block height', async ({ page }) => {
+  // Capture console messages and errors
+  page.on('console', msg => console.log(`[Browser ${msg.type()}]:`, msg.text()))
+  page.on('pageerror', err => console.error('[Browser error]:', err.message))
+
   await page.goto('/')
 
   const connectButton = page.getByRole('button', { name: /connect to nimiq/i })
@@ -8,8 +12,8 @@ test('connects to Nimiq and reports a block height', async ({ page }) => {
 
   await connectButton.click()
 
-  // Wait for consensus to be established
-  await expect(page.getByText('Established')).toBeVisible({ timeout: 60000 })
+  // Wait for consensus to be established (increased timeout for CI)
+  await expect(page.getByText('Established')).toBeVisible({ timeout: 120000 })
 
   // Wait for block number to be positive
   const blockNumberElement = page.locator('code')
@@ -20,7 +24,7 @@ test('connects to Nimiq and reports a block height', async ({ page }) => {
     const blockNumberText = await blockNumberElement.textContent()
     const blockNumber = Number.parseInt(blockNumberText || '0', 10)
     expect(blockNumber).toBeGreaterThan(0)
-  }).toPass({ timeout: 60000 })
+  }).toPass({ timeout: 120000 })
 
   const finalBlockNumber = await blockNumberElement.textContent()
   console.log(`✅ Nimiq Next.js test passed: Block ${finalBlockNumber}`)
