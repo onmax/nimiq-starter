@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next'
+import { copyFileSync, cpSync, mkdirSync } from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 
@@ -38,6 +39,37 @@ const nextConfig: NextConfig = {
       if (Array.isArray(config.externals)) {
         config.externals.push('@nimiq/core/web')
       }
+    }
+    else {
+      // Copy Nimiq worker dependencies to static chunks directory (client-side only)
+      config.plugins = config.plugins || []
+      config.plugins.push({
+        apply: (compiler: any) => {
+          compiler.hooks.afterEmit.tap('CopyNimiqWorkerDeps', () => {
+            const publicDir = path.join(process.cwd(), 'public')
+            const chunksDir = path.join(process.cwd(), '.next', 'static', 'chunks')
+
+            try {
+              mkdirSync(chunksDir, { recursive: true })
+
+              // Copy comlink.min.js
+              const comlinkSrc = path.join(publicDir, 'comlink.min.js')
+              const comlinkDest = path.join(chunksDir, 'comlink.min.js')
+              copyFileSync(comlinkSrc, comlinkDest)
+
+              // Copy worker-wasm directory
+              const workerSrc = path.join(publicDir, 'worker-wasm')
+              const workerDest = path.join(chunksDir, 'worker-wasm')
+              cpSync(workerSrc, workerDest, { recursive: true })
+
+              console.log('✓ Copied Nimiq worker dependencies to static chunks')
+            }
+            catch (err) {
+              console.warn('Warning: Failed to copy Nimiq worker dependencies:', err)
+            }
+          })
+        },
+      })
     }
 
     return config
