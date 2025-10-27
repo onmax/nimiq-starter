@@ -66,28 +66,32 @@ index bb2ea2bd37240b0bc247a9fefde630ed17931170..9a919e0bec87f496c4799189d45b7b27
    },
    "homepage": "https://nimiq.com",
 diff --git a/web/crypto.js b/web/crypto.js
-index c93452a1dfa8b865c7f9900b1efad558a24480f3..3583885d458459661ce614d0a4a82c936e8151c4 100644
+index c93452a1dfa8b865c7f9900b1efad558a24480f3..79b9f51f266c87744e1a907cc448077014b0d017 100644
 --- a/web/crypto.js
 +++ b/web/crypto.js
-@@ -2,7 +2,7 @@
+@@ -2,8 +2,8 @@
  // global scope. We import the generated JS file to make `wasm_bindgen`
  // available which we need to initialize our WASM code.
  importScripts(
 -    './comlink.min.js',
-+    '/comlink.min.js',
-     './crypto-wasm/index.js',
+-    './crypto-wasm/index.js',
++    self.location.origin + '/comlink.min.js',
++    self.location.origin + '/crypto-wasm/index.js',
  );
  
+ const { CryptoUtils } = wasm_bindgen;
 diff --git a/web/worker.js b/web/worker.js
-index f073c2942eaa0cc8ae3a2631846a30d831a245d3..c095088208af3fbc6930a2f5c3392953fec6a9bd 100644
+index f073c2942eaa0cc8ae3a2631846a30d831a245d3..4f2fee0c1f706e406acb1b8663134f3966d3afcf 100644
 --- a/web/worker.js
 +++ b/web/worker.js
-@@ -2,7 +2,7 @@
+@@ -2,8 +2,8 @@
  // global scope. We import the generated JS file to make `wasm_bindgen`
  // available which we need to initialize our WASM code.
  importScripts(
 -    './comlink.min.js',
-+    '/comlink.min.js',
-     './worker-wasm/index.js',
+-    './worker-wasm/index.js',
++    self.location.origin + '/comlink.min.js',
++    self.location.origin + '/worker-wasm/index.js',
  );
  
+ const { Client } = wasm_bindgen;

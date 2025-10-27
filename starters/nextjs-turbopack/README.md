@@ -2,9 +2,11 @@
 
 Next.js starter with Nimiq blockchain using Turbopack bundler.
 
-> **✅ Technical Solution**: Uses pnpm patch to fix worker `importScripts()` paths for Turbopack compatibility.
+> **⚠️ EXPERIMENTAL - NOT RECOMMENDED**
 >
-> **⚠️ Performance**: Turbopack dev server startup is significantly slower than webpack. Use webpack version for development/production.
+> This version has severe performance issues. Dev server startup takes 180+ seconds.
+>
+> **Use `starters/nextjs-webpack` instead** for development and production.
 
 ## Live Demo
 
