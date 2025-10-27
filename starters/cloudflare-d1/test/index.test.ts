@@ -11,8 +11,8 @@ function createMockExecutionContext(): ExecutionContext {
 }
 
 describe('nimiq Cloudflare Worker', () => {
-  it('should return block number from /block-number endpoint', async () => {
-    const request = new Request('http://example.com/block-number')
+  it('should return block number from / endpoint', { timeout: 30000 }, async () => {
+    const request = new Request('http://example.com/')
     const env = {}
     const ctx = createMockExecutionContext()
 
@@ -23,7 +23,7 @@ describe('nimiq Cloudflare Worker', () => {
     expect(data.success).toBe(true)
     expect(typeof data.blockNumber).toBe('number')
     expect(data.blockNumber).toBeGreaterThanOrEqual(0)
-  }, { timeout: 30000 })
+  })
 
   it('should return 404 for unknown endpoints', async () => {
     const request = new Request('http://example.com/unknown')

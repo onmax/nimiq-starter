@@ -65,29 +65,32 @@ it('opens Hub popup and verifies it loads the Hub interface', async () => {
   expect(hubPopup).toBeTruthy()
 
   // Try to verify the popup loaded (if accessible due to CORS/same-origin policy)
-  if (hubPopup && !hubPopup.closed) {
-    try {
-      // Wait a bit for the Hub to load
-      await sleep(3000)
+  if (hubPopup) {
+    const popup = hubPopup as Window
+    if (!popup.closed) {
+      try {
+        // Wait a bit for the Hub to load
+        await sleep(3000)
 
-      // Check if we can access the popup's location
-      const popupLocation = hubPopup.location.href
-      expect(popupLocation).toContain('hub.nimiq')
-      console.log('✅ Hub popup verified - URL:', popupLocation)
+        // Check if we can access the popup's location
+        const popupLocation = popup.location.href
+        expect(popupLocation).toContain('hub.nimiq')
+        console.log('✅ Hub popup verified - URL:', popupLocation)
 
-      // Close the popup
-      hubPopup.close()
-    }
-    catch (error) {
-      // If we get a cross-origin error, that's actually good - it means the real Hub loaded
-      const errorMessage = error instanceof Error ? error.message : String(error)
-      if (errorMessage.includes('cross-origin') || errorMessage.includes('SecurityError')) {
-        console.log('✅ Hub popup loaded (cross-origin - real Hub domain)')
-        console.log('   Expected cross-origin restriction confirms real Hub loaded')
-        hubPopup.close()
+        // Close the popup
+        popup.close()
       }
-      else {
-        throw error
+      catch (error) {
+        // If we get a cross-origin error, that's actually good - it means the real Hub loaded
+        const errorMessage = error instanceof Error ? error.message : String(error)
+        if (errorMessage.includes('cross-origin') || errorMessage.includes('SecurityError')) {
+          console.log('✅ Hub popup loaded (cross-origin - real Hub domain)')
+          console.log('   Expected cross-origin restriction confirms real Hub loaded')
+          popup.close()
+        }
+        else {
+          throw error
+        }
       }
     }
   }

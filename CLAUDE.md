@@ -81,6 +81,7 @@ build: { target: 'esnext', rollupOptions: { output: { format: 'es' } } }
 ```typescript
 // Always use dynamic imports and init() for web
 import init, * as Nimiq from '@nimiq/core/web'
+
 await init()
 const config = new Nimiq.ClientConfiguration()
 config.syncMode('pico')
@@ -91,6 +92,7 @@ const client = await Nimiq.Client.create(config.build())
 ```typescript
 // Use bundler import (no init() needed)
 import * as Nimiq from '@nimiq/core'
+
 const config = new Nimiq.ClientConfiguration()
 config.syncMode('pico')
 const client = await Nimiq.Client.create(config.build())

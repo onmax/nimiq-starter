@@ -7,6 +7,8 @@ export default antfu(
     ignores: [
       '.claude/**/*.md',
       'CLAUDE.md',
+      'AGENTS.md',
+      '**/public/worker-wasm/**',
     ],
   },
   {
