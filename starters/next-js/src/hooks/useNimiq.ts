@@ -15,8 +15,9 @@ export function useNimiq() {
       setLoading(true)
       setError(undefined)
 
-      // Use bundler version for Next.js webpack compatibility
-      const Nimiq = await import('@nimiq/core')
+      // Use web version for browser environment
+      const { default: init, ...Nimiq } = await import('@nimiq/core/web')
+      await init()
 
       const config = new Nimiq.ClientConfiguration()
       config.syncMode('pico')

@@ -31,11 +31,11 @@ const nextConfig: NextConfig = {
       },
     }
 
-    // Exclude @nimiq/core from server-side bundling entirely
+    // Exclude @nimiq/core/web from server-side bundling entirely
+    // (Only runs in browser, not on server)
     if (isServer) {
       config.externals = config.externals || []
       if (Array.isArray(config.externals)) {
-        config.externals.push('@nimiq/core')
         config.externals.push('@nimiq/core/web')
       }
     }
