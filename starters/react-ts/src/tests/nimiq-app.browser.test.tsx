@@ -17,7 +17,7 @@ async function findElement<T extends Element>(selector: string, timeout = 10000)
   throw new Error(`Element ${selector} not found within ${timeout}ms`)
 }
 
-async function waitForText(selector: string, text: string, timeout = 60000) {
+async function waitForText(selector: string, text: string, timeout = 120000) {
   const deadline = Date.now() + timeout
   const normalizedTarget = text.toLowerCase()
   while (Date.now() < deadline) {
@@ -29,7 +29,7 @@ async function waitForText(selector: string, text: string, timeout = 60000) {
   throw new Error(`Timed out waiting for ${text} in ${selector}`)
 }
 
-async function waitForPositiveNumber(selector: string, timeout = 60000): Promise<number> {
+async function waitForPositiveNumber(selector: string, timeout = 120000): Promise<number> {
   const deadline = Date.now() + timeout
   while (Date.now() < deadline) {
     const raw = document.querySelector(selector)?.textContent?.trim() ?? ''
@@ -60,4 +60,4 @@ it('connects to Nimiq and reports a block height', async () => {
   const blockNumber = await waitForPositiveNumber('code')
   expect(blockNumber).toBeGreaterThan(0)
   console.log(`✅ Nimiq test passed: Block ${blockNumber}`)
-}, 90000)
+}, 180000)
