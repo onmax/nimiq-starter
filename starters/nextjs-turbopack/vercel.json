@@ -1,0 +1,4 @@
+{
+  "installCommand": "cd ../.. && pnpm install && cd starters/nextjs-turbopack",
+  "buildCommand": "pnpm build"
+}
