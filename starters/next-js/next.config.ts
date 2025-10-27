@@ -6,8 +6,8 @@ const nextConfig: NextConfig = {
   // Fix workspace root warning without overshooting project root on Vercel
   outputFileTracingRoot: path.join(process.cwd(), '../../'),
 
-  // Silence turbopack warning (Turbopack enabled by default in Next.js 16)
-  turbopack: {},
+  // Note: Use --webpack flag in package.json scripts
+  // Turbopack doesn't support asyncWebAssembly yet, so we use webpack
 
   webpack: (config, { isServer }) => {
     // Enable WebAssembly and top-level await
