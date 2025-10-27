@@ -48,6 +48,11 @@
     "vitest-package-exports": "^0.1.1",
     "yaml": "^2.8.1"
   },
+  "pnpm": {
+    "patchedDependencies": {
+      "@nimiq/core@2.2.0": "patches/@nimiq__core@2.2.0.patch"
+    }
+  },
   "simple-git-hooks": {
     "pre-commit": "pnpm i --frozen-lockfile --ignore-scripts --offline && npx lint-staged"
   },

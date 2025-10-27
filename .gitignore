@@ -93,3 +93,4 @@ yarn.lock
 # tasks.json
 # tasks/ 
 .vercel
+starters/nextjs-turbopack/public/crypto-wasm/
